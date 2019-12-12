@@ -190,6 +190,7 @@
 (require 'protobuf-setup)
 (require 'cmake-setup)
 (require 'column-indicator-setup)
+(require 'magit-setup)
 
 
 ;; Flycheck: syntax checking.
