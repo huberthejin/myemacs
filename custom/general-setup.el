@@ -141,10 +141,6 @@
 ;; Always follow the symlink
 (setq vc-follow-symlinks t)
 
-;; Display file path reversed.
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'reverse)
-
 ;; Replace the active region just by typing text, and delete the
 ;; selected text just by hitting the Backspace key.
 (delete-selection-mode 1)
@@ -167,7 +163,7 @@
 ;;(use-package which-key
 ;;  :config (which-key-mode))
 
-
+(require 'uniquify-setup)
 (require 'yasnippet-setup)
 (require 'smartparens-setup)
 (require 'avy-setup)
@@ -179,13 +175,11 @@
 (require 'xcscope-setup)
 (require 'company-setup)
 (require 'projectile-setup)
+(require 'zygospore-setup)
 
-;; Flycheck: syntax checking.
-;;(use-package flycheck
-;;  :config
-;;  (progn
-;;    (global-flycheck-mode))
-;;  )
+;;(require 'flycheck-setup)
+
+
 
 ;; tabbar
 ;;(use-package tabbar
@@ -209,10 +203,6 @@
 
 
 
-;; Package zygospore
-(use-package zygospore
-  :bind (("C-x 1" . zygospore-toggle-delete-other-windows)
-         ("RET" .   newline-and-indent)))
 
 ;; automatically indent when press RET
 

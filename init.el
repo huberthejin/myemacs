@@ -1,7 +1,8 @@
 ;; ====== EMACS windows (color, size) setting ========
 (load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
 
-;; 1 is laptop, 2 is office
+;; 1 is vm laptop,
+;; 2 is vm office
 (setq laptop 2)
 
 (defun adjustWindowSize (myWinWidth myWinHeight myFontSize)
@@ -18,7 +19,10 @@
 
 (if ( = laptop 1)
     (adjustWindowSize 180 50 140)
-  (adjustWindowSize 230 60 110)
+  )
+
+(if ( = laptop 2)
+    (adjustWindowSize 230 60 110)
   )
 
 ;; =============pakcages =====================
@@ -40,14 +44,9 @@
 ;; ==============required packages ================
 (require 'general-setup)
 (require 'gdb-setup)
-
-(if (version< emacs-version "24.4")
-    (require 'ivy-counsel-setup)
-  (require 'helm-setup)
-  (require 'helm-gtags-setup)
+(require 'helm-setup)
+(require 'helm-gtags-setup)
 ;; (require 'ggtags-setup)
-  )
-
 (require 'c-setup)
 (require 'cedet-setup)
 (require 'editing-setup)
