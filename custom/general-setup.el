@@ -1,3 +1,7 @@
+;; C-M-j  comment-indent-new-line, make next line comment.
+;; M-;    turn existing line into comments.
+;; M-x comment-region
+
 ;; Use  mc/insert-numbers to increase number across lines.
 ;; Use C-u 1 M-x mc/insert-numbers to increase number from 1.
 ;; C-M-f = forward-sexp    dash and underscore will be part of the word.
@@ -163,27 +167,8 @@
 ;;(use-package which-key
 ;;  :config (which-key-mode))
 
-;; yasnippet: create template.
-(use-package yasnippet
-  :init
-  (progn
-    (yas-global-mode 1)
-    (define-key yas-minor-mode-map (kbd "TAB") nil)
-    (define-key yas-minor-mode-map (kbd "<tab>") nil)
-    ;;(define-key yas-minor-mode-map (kbd "<C-tab>") #'yas-expand)
-    (define-key yas-minor-mode-map (kbd "C-`") #'yas-expand)
-    )
-  :config
-  ;;(add-to-list 'yas-snippet-dirs (expand-file-name "~/.emacs.d/custom/snippets"))
-  (use-package yasnippet-snippets
-    :config
-    (progn
-      (add-to-list 'load-path "~/.emacs.d/elpa/yasnippet-snippets-20190926.1252")
-      (add-to-list 'load-path "~/.emacs.d/snippets") ; Add my own snippets here.
-      )
-    )
-  )
 
+(require 'yasnippet-setup)
 (require 'smartparens-setup)
 (require 'avy-setup)
 (require 'expand-region-setup)
@@ -191,7 +176,9 @@
 (require 'cmake-setup)
 (require 'column-indicator-setup)
 (require 'magit-setup)
-
+(require 'xcscope-setup)
+(require 'company-setup)
+(require 'projectile-setup)
 
 ;; Flycheck: syntax checking.
 ;;(use-package flycheck
@@ -220,21 +207,7 @@
  gdb-show-main t
  )
 
-;; company: compete with auto-complete.
-(use-package company
-  :config
-  (global-company-mode 1)
-  ;(delete 'company-semantic company-backends))
-  (setq company-backends (delete 'company-semantic company-backends))
-  (setq company-dabbrev-downcase 0)
-  (setq company-idle-delay 0)
-  )
 
-;; Package: projejctile
-(use-package projectile
-  :init
-  (projectile-global-mode)
-  (setq projectile-enable-caching t))
 
 ;; Package zygospore
 (use-package zygospore
@@ -247,6 +220,10 @@
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (windmove-default-keybindings)
 
+
+
+
+;; ***************** define my own functions here **********************
 
 (defun quick-copy-line ()
   "Copy the whole line that point is on and move to the beginning of the next line.
