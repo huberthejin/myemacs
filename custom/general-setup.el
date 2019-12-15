@@ -179,7 +179,14 @@
 
 ;;(require 'flycheck-setup)
 
+;; *************editing related **********
 
+(require 'clean-aindent-mode-setup)
+(require 'dtrt-indent-setup)
+(require 'ws-butler-setup)
+(require 'comment-dwin-2-setup)
+(require 'anzu-setup)
+(require 'iedit-setup)
 
 ;; tabbar
 ;;(use-package tabbar
