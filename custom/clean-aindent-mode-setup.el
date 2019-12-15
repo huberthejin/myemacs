@@ -4,4 +4,4 @@
   :init
   (add-hook 'prog-mode-hook 'clean-aindent-mode))
 
-(provide "clean-aindent-mode-setup)
+(provide 'clean-aindent-mode-setup)
