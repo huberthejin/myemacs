@@ -187,8 +187,8 @@
 
 ;; ==========complete ways ======
 ;; 1. completion old way
-;;(require 'auto-complete-setup)
 (require 'xcscope-setup)
+(require 'auto-complete-setup)
 (require 'semantic-setup)
 
 ;; 2. complete with irony
