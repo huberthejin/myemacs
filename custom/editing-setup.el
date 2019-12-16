@@ -16,7 +16,7 @@
 (setq-default indent-tabs-mode nil)
 
 ;; overwrite selected text.
-(delete-selection-mode)
+;;(delete-selection-mode)
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
@@ -39,34 +39,6 @@
                                           newline
                                           newline-mark))
                             (whitespace-mode 1)))
-
-;; Package: volatile-highlights
-;; GROUP: Editing -> Volatile Highlights
-(use-package volatile-highlights
-  :init
-  (volatile-highlights-mode t))
-
-;; Package: undo-tree
-;; GROUP: Editing -> Undo -> Undo Tree
-(use-package undo-tree
-  :init
-  (global-undo-tree-mode 1))
-
-
-;; Package: yasnippet
-;; GROUP: Editing -> Yasnippet
-;; Package: yasnippet
-(use-package yasnippet
-  :defer t
-  :init
-  (add-hook 'prog-mode-hook 'yas-minor-mode))
-
-
-
-
-
-
-
 
 
 ;; Customized functions

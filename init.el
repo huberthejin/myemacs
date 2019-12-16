@@ -49,7 +49,7 @@
 ;; (require 'ggtags-setup)
 (require 'c-setup)
 (require 'cedet-setup)
-(require 'editing-setup)
+;;(require 'editing-setup)
 (require 'multiple-cursors-setup)
 (require 'move-text-setup)
 
