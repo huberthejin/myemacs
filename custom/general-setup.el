@@ -176,6 +176,25 @@
 (require 'company-setup)
 (require 'projectile-setup)
 (require 'zygospore-setup)
+(require 'gdb-setup)
+(require 'helm-setup)
+(require 'helm-gtags-setup)
+;; (require 'ggtags-setup)
+(require 'c-setup)
+(require 'cedet-setup)
+;;(require 'editing-setup)
+(require 'multiple-cursors-setup)
+(require 'move-text-setup)
+
+;; ==========complete ways ======
+;; 1. completion old way
+;;(require 'auto-complete-setup)
+(require 'semantic-setup)
+
+;; 2. complete with irony
+;;(require 'completeirony-setup)
+
+
 
 ;;(require 'flycheck-setup)
 

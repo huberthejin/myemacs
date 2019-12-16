@@ -43,15 +43,6 @@
 
 ;; ==============required packages ================
 (require 'general-setup)
-(require 'gdb-setup)
-(require 'helm-setup)
-(require 'helm-gtags-setup)
-;; (require 'ggtags-setup)
-(require 'c-setup)
-(require 'cedet-setup)
-;;(require 'editing-setup)
-(require 'multiple-cursors-setup)
-(require 'move-text-setup)
 
 ;; function-args
 ;; (require 'function-args)
@@ -74,10 +65,3 @@
 ;;============================
 (setq launchdir default-directory)
 
-;; ==========complete ways ======
-;; 1. completion old way
-;;(require 'auto-complete-setup)
-(require 'semantic-setup)
-
-;; 2. complete with irony
-;;(require 'completeirony-setup)
