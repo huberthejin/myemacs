@@ -162,6 +162,8 @@
 ;; C-x  then wait couple of seconds.
 ;;(use-package which-key
 ;;  :config (which-key-mode))
+(require 'helm-setup)
+(require 'helm-gtags-setup)
 
 (require 'uniquify-setup)
 (require 'yasnippet-setup)
@@ -172,13 +174,10 @@
 (require 'cmake-setup)
 (require 'column-indicator-setup)
 (require 'magit-setup)
-(require 'xcscope-setup)
 (require 'company-setup)
 (require 'projectile-setup)
 (require 'zygospore-setup)
 (require 'gdb-setup)
-(require 'helm-setup)
-(require 'helm-gtags-setup)
 ;; (require 'ggtags-setup)
 (require 'c-setup)
 (require 'cedet-setup)
@@ -189,6 +188,7 @@
 ;; ==========complete ways ======
 ;; 1. completion old way
 ;;(require 'auto-complete-setup)
+(require 'xcscope-setup)
 (require 'semantic-setup)
 
 ;; 2. complete with irony

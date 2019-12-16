@@ -44,7 +44,7 @@
     (global-set-key (kbd "C-c u") 'clang-format-buffer)
     ;;(setq clang-format-style "file")
     ;;(setq clang-format-style "{BasedOnStyle: llvm, IndentWidth: 4, AccessModifierOffset: -4}")
-   )
+    )
   )
 
 
