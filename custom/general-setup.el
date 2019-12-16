@@ -192,7 +192,7 @@
 (require 'semantic-setup)
 
 ;; 2. complete with irony
-;;(require 'completeirony-setup)
+(require 'completeirony-setup)
 
 
 
