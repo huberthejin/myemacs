@@ -1,0 +1,14 @@
+
+function ta ()
+{
+    #clean older info
+    rm -rf tags
+    rm -rf TAGS
+    rm -rf cscope.files
+    rm -rf cscope.out
+    # generate new info
+
+    find $PWD -type f | grep -v build_arm | grep -v build_x86 | grep -v 3dParty | grep -v 2dParty| egrep -i "\.(c|h|cpp|cc|hpp)$" > cscope.files
+    find $PWD -type f | grep -v build_arm | grep -v build_x86 | grep -v 3dParty | grep -v 2dParty| egrep -i "\.(c|h|cpp|cc|hpp)$" | xargs etags -a
+
+}
