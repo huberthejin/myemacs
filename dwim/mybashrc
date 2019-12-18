@@ -1,4 +1,6 @@
 
+alias em='emacs &'
+
 function ta ()
 {
     #clean older info
