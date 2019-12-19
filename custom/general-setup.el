@@ -184,7 +184,10 @@
 ;;(require 'editing-setup)
 (require 'multiple-cursors-setup)
 (require 'move-text-setup)
+
 (require 'ag-setup)
+(require 'wgrep-setup)
+(require 'wgrep-ag-setup)
 
 
 ;; ==========complete ways ======

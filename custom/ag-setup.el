@@ -8,10 +8,12 @@
     (global-set-key (kbd "C-c a p") 'ag-project)
     (global-set-key (kbd "C-c a r") 'ag-project-regexp)
 
+    (setq ag-highlight-search t)
+    (setq ag-group-matches nil)
+
     )
   )
 
 
-(setq ag-highlight-search t)
 
 (provide 'ag-setup)
