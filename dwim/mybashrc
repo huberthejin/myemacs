@@ -1,5 +1,13 @@
 
-alias em='emacs &'
+# use em to alias emacs
+em() {
+    if [ $# -eq 0 ]; then
+        emacs &
+    else
+        emacs $1 &
+    fi
+}
+
 
 function ta ()
 {
