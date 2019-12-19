@@ -184,6 +184,8 @@
 ;;(require 'editing-setup)
 (require 'multiple-cursors-setup)
 (require 'move-text-setup)
+(require 'ag-setup)
+
 
 ;; ==========complete ways ======
 ;; 1. completion old way

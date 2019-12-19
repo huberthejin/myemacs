@@ -3,8 +3,8 @@
 
 ;; 1 is vm laptop,
 ;; 2 is vm office
-(setq laptop 2)
 ;; 3 is vnc office.
+(setq laptop 2)
 
 (defun adjustWindowSize (myWinWidth myWinHeight myFontSize)
   "My change window setting."
