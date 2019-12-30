@@ -10,7 +10,10 @@
 ;; C-M-\  indent the whole region
 ;; C-M-n  C-M-p   Jump between parenthesis.
 ;; C-h a mode   search all commands that has mode.
+
 ;; C-x h  select all
+;; C-u C-<SPc> twice  move back to original position.
+
 ;; M-%  query-replace.
 ;; M-j  join line.
 ;; C-`  yasnippet expand
@@ -19,8 +22,6 @@
 ;; C-c w  whitespace on/off
 ;; C-c C-v quick copy line
 ;; C-c C-x quick cut line
-;; C-S-down   move line down
-;; C-S-up     move line up.
 ;; C-return   open line below.
 ;; C-S-return open line up.
 ;; M-g M-g    go to line.
@@ -41,8 +42,8 @@
 ;; C-;"        iedit-mode
 ;; C-=         er/expand-region)
 ;; C--         er/contract-region)
-;; M-<up arrow>  move current line up.
-;; M-<down arrow>  move current line down.
+;; M-<up arrow>  move current line/region up.
+;; M-<down arrow>  move current line/region down.
 ;; C-x C-x     exchange-point-and-mark.
 ;; C-x r y      exit multiple-cursor (enter) and while in new buffer hit C-x r y
 
@@ -274,30 +275,6 @@
   (beginning-of-line 1)
   (setq this-command 'quick-cut-line))
 (global-set-key "\C-c\C-x" 'quick-cut-line)
-
-
-;; Move current line up or down one line.
-(defun move-line-down ()
-  (interactive)
-  (let ((col (current-column)))
-    (save-excursion
-      (forward-line)
-      (transpose-lines 1))
-    (forward-line)
-    (move-to-column col)))
-
-(defun move-line-up ()
-  (interactive)
-  (let ((col (current-column)))
-    (save-excursion
-      (forward-line)
-      (transpose-lines -1))
-    (forward-line -1)
-    (move-to-column col)))
-
-(global-set-key (kbd "<C-S-down>") 'move-line-down)
-(global-set-key (kbd "<C-S-up>") 'move-line-up)
-
 
 
 ;; Add an empbly line below or above current line.
