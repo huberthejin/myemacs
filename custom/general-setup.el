@@ -1,36 +1,37 @@
-;; C-M-j  comment-indent-new-line, make next line comment.
-;; M-;    turn existing line into comments.
-;; M-x comment-region
+;; C-M-j    comment-indent-new-line, make next line comment.
+;; M-;      turn existing line into comments.
+;; M-x      comment-region
 
 ;; Use  mc/insert-numbers to increase number across lines.
 ;; Use C-u 1 M-x mc/insert-numbers to increase number from 1.
-;; C-M-f = forward-sexp    dash and underscore will be part of the word.
-;; C-M-b = backward-sexp
+;; C-M-f =          forward-sexp    dash and underscore will be part of the word.
+;; C-M-b =          backward-sexp
 ;; C-M-v and C-M-V  scroll the other windown.
-;; C-M-\  indent the whole region
-;; C-M-n  C-M-p   Jump between parenthesis.
-;; C-h a mode   search all commands that has mode.
+;; C-M-\            indent the whole region
+;; C-M-n  C-M-p     Jump between parenthesis.
+;; C-h a mode       search all commands that has mode.
+;; C-h              which-key window
 
-;; C-x h  select all
-;; C-u C-<SPc> twice  move back to original position.
+;; C-x h            select all
+;; C-u C-<SPc>      twice  move back to original position.
 
-;; M-%  query-replace.
-;; M-j  join line.
-;; C-`  yasnippet expand
-;; f1 save all buffers.
-;; f5  compilation
-;; C-c w  whitespace on/off
-;; C-c C-v quick copy line
-;; C-c C-x quick cut line
-;; C-return   open line below.
-;; C-S-return open line up.
-;; M-g M-g    go to line.
-;; M-s        avy-goto-char
-;; C-c C-c    compile c/c++
-;; C-c f      clang-format-region
-;; C-c u      clang-format-buffer
-;; C-c C-j    semantic-ia-fast-jump
-;; C-c C-s    semantic-ia-show-summary
+;; M-%         query-replace.
+;; M-j         join line.
+;; C-`         yasnippet expand
+;; f1          save all buffers.
+;; f5          compilation
+;; C-c w       whitespace on/off
+;; C-c C-v     quick copy line
+;; C-c C-x     quick cut line
+;; C-return    open line below.
+;; C-S-return  open line up.
+;; M-g M-g     go to line.
+;; M-s         avy-goto-char
+;; C-c C-c     compile c/c++
+;; C-c f       clang-format-region
+;; C-c u       clang-format-buffer
+;; C-c C-j     semantic-ia-fast-jump
+;; C-c C-s     semantic-ia-show-summary
 ;; [(ctrl f3)] cscope-history-forward-line-current-result)
 ;; [(ctrl f4)] cscope-history-backward-line-current-result)
 ;; M-;         comment-dwim-2
@@ -42,16 +43,16 @@
 ;; C-;"        iedit-mode
 ;; C-=         er/expand-region)
 ;; C--         er/contract-region)
-;; M-<up arrow>  move current line/region up.
+;; M-<up arrow>    move current line/region up.
 ;; M-<down arrow>  move current line/region down.
-;; C-x C-x     exchange-point-and-mark.
-;; C-x r y      exit multiple-cursor (enter) and while in new buffer hit C-x r y
+;; C-x C-x         exchange-point-and-mark.
+;; C-x r y         exit multiple-cursor (enter) and while in new buffer hit C-x r y
 
 
-;; C-S-c C-S-c    mc/edit-lines)
-;; C->            mc/mark-next-like-this)
-;; C-<            mc/mark-previous-like-this)
-;; C-c C-<        mc/mark-all-like-this)
+;; C-S-c C-S-c  mc/edit-lines)
+;; C->          mc/mark-next-like-this)
+;; C-<          mc/mark-previous-like-this)
+;; C-c C-<      mc/mark-all-like-this)
 
 ;; C-c g s"    ggtags-find-other-symbol)
 ;; C-c g h"    ggtags-view-tag-history)
@@ -161,8 +162,7 @@
 ;;;; ============= Individual setting above this line ===========
 
 ;; C-x  then wait couple of seconds.
-;;(use-package which-key
-;;  :config (which-key-mode))
+(require 'which-key-setup)
 (require 'helm-setup)
 (require 'helm-gtags-setup)
 
