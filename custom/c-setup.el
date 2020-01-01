@@ -36,24 +36,7 @@
           (lambda () (define-key c++-mode-base-map (kbd "C-c C-c") 'compile)))
 
 
-;; clang
-(use-package clang-format
-  :config
-  (progn
-    (global-set-key (kbd "C-c f") 'clang-format-region)
-    (global-set-key (kbd "C-c u") 'clang-format-buffer)
-    ;;(setq clang-format-style "file")
-    ;;(setq clang-format-style "{BasedOnStyle: llvm, IndentWidth: 4, AccessModifierOffset: -4}")
-    )
-  )
-
-;; clang+
-(use-package clang-format+
-  :config
-  (progn
-    (add-hook 'c-mode-common-hook #'clang-format+-mode))
-    (setq clang-format+-context 'modification)
-  )
+(require 'clang-setup)
 
 
 (provide 'c-setup)
