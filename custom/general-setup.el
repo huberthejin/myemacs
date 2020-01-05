@@ -1,4 +1,8 @@
+;; C-M-a	Go to beginning of a function definition
+;; C-M-e	Go to end of a function definition
+;; C-M-h	Put a region around a function definition
 ;; C-M-j    comment-indent-new-line, make next line comment.
+
 ;; M-;      turn existing line into comments.
 ;; M-x      comment-region
 
@@ -160,6 +164,8 @@
 
 
 ;;;; ============= Individual setting above this line ===========
+
+(require 'org-setup)
 
 ;; C-x  then wait couple of seconds.
 (require 'which-key-setup)
