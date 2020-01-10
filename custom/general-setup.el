@@ -1,3 +1,5 @@
+;; C-x C-j  use dired-jump
+;; C-x z    repeat commands, hit z to keep repeating.
 ;; C-M-a	Go to beginning of a function definition
 ;; C-M-e	Go to end of a function definition
 ;; C-M-h	Put a region around a function definition
@@ -86,7 +88,7 @@
 
 
 
-(menu-bar-mode -1)
+;;(menu-bar-mode -1)
 (tool-bar-mode -1)
 
 ;;size of garbage collector.
@@ -164,6 +166,8 @@
 
 
 ;;;; ============= Individual setting above this line ===========
+;; use dired-jump   C-x C-j
+(require 'dired-x)
 
 (require 'org-setup)
 
@@ -229,7 +233,7 @@
 (windmove-default-keybindings)
 
 ;; Compilation
-(global-set-key (kbd "<f5>") (lambda ()
+(global-set-key (kbd "<f8>") (lambda ()
                                (interactive)
                                (setq-local compilation-read-command nil)
                                (call-interactively 'compile)))
@@ -327,7 +331,7 @@
                                     ((and buffer-file-name (eq major-mode 'c-mode)))
                                     ((and buffer-file-name (eq major-mode 'c++-mode)))))))
 
-(global-set-key [f1] 'my-save-some-buffers)
+(global-set-key [f5] 'my-save-some-buffers)
 
 ;; Reload file by force.
 (defun revert-file ()
