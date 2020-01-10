@@ -200,6 +200,8 @@
 (require 'wgrep-setup)
 (require 'wgrep-ag-setup)
 
+(require 'rainbow-delimiters-setup)
+
 
 ;; ==========complete ways ======
 ;; 1. completion old way
