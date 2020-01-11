@@ -170,6 +170,7 @@
 (require 'dired-x)
 
 (require 'org-setup)
+(require 'dired-narrow-setup)
 
 ;; C-x  then wait couple of seconds.
 (require 'which-key-setup)
