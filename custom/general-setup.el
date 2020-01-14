@@ -1,89 +1,81 @@
-;; C-x C-j  use dired-jump
-;; C-x z    repeat commands, hit z to keep repeating.
-;; C-M-a	Go to beginning of a function definition
-;; C-M-e	Go to end of a function definition
-;; C-M-h	Put a region around a function definition
-;; C-M-j    comment-indent-new-line, make next line comment.
-
-;; M-;      turn existing line into comments.
-;; M-x      comment-region
-
-;; Use  mc/insert-numbers to increase number across lines.
-;; Use C-u 1 M-x mc/insert-numbers to increase number from 1.
-;; C-M-f =          forward-sexp    dash and underscore will be part of the word.
-;; C-M-b =          backward-sexp
-;; C-M-v and C-M-V  scroll the other windown.
-;; C-M-\            indent the whole region
-;; C-M-n  C-M-p     Jump between parenthesis.
-;; C-h a mode       search all commands that has mode.
-;; C-h              which-key window
-
-;; C-x h            select all
-;; C-u C-<SPc>      twice  move back to original position.
-
-;; M-%         query-replace.
-;; M-j         join line.
-;; C-`         yasnippet expand
-;; f1          save all buffers.
-;; f5          compilation
-;; C-c w       whitespace on/off
-;; C-c C-v     quick copy line
-;; C-c C-x     quick cut line
-;; C-return    open line below.
-;; C-S-return  open line up.
-;; M-g M-g     go to line.
-;; M-s         avy-goto-char
-;; C-c C-c     compile c/c++
-;; C-c f       clang-format-region
-;; C-c u       clang-format-buffer
-;; C-c C-j     semantic-ia-fast-jump
-;; C-c C-s     semantic-ia-show-summary
-;; [(ctrl f3)] cscope-history-forward-line-current-result)
-;; [(ctrl f4)] cscope-history-backward-line-current-result)
-;; M-;         comment-dwim-2
-;; M-%         anzu-query-replace
-;; C-M-%       anzu-query-replace-regexp
-;; C-x n n     narrow
-;; C-x n w     widen
-;; C-x n d     fuction.
-;; C-;"        iedit-mode
-;; C-=         er/expand-region)
-;; C--         er/contract-region)
-;; M-<up arrow>    move current line/region up.
-;; M-<down arrow>  move current line/region down.
-;; C-x C-x         exchange-point-and-mark.
-;; C-x r y         exit multiple-cursor (enter) and while in new buffer hit C-x r y
 
 
-;; C-S-c C-S-c  mc/edit-lines)
-;; C->          mc/mark-next-like-this)
-;; C-<          mc/mark-previous-like-this)
-;; C-c C-<      mc/mark-all-like-this)
-
-;; C-c g s"    ggtags-find-other-symbol)
-;; C-c g h"    ggtags-view-tag-history)
-;; C-c g r"    ggtags-find-reference)
-;; C-c g f"    ggtags-find-file)
-;; C-c g c"    ggtags-create-tags)
-;; C-c g u"    ggtags-update-tags)
-;; C-c g a"    helm-gtags-tags-in-this-function)
-;; M-.         ggtags-find-tag-dwim)
-;; M-,         pop-tag-mark)
-;; C-c <       ggtags-prev-mark)
-;; C-c >       ggtags-next-mark)
-
-;; C-c g a     helm-gtags-tags-in-this-function)
-;; C-j         helm-gtags-select)
-;; M-.         helm-gtags-dwim)
-;; M-,         helm-gtags-pop-stack)
-;; C-c <       helm-gtags-previous-history)
-;; C-c >       helm-gtags-next-history))))
-
-
-
-
-
-
+(defun get-help ()
+  (interactive)
+  (message "*******************")
+  (message "C-x C-j          use dired-jump")
+  (message "C-x z            repeat commands, hit z to keep repeating.")
+  (message "C-M-a	         Go to beginning of a function definition")
+  (message "C-M-e	         Go to end of a function definition")
+  (message "C-M-h	         Put a region around a function definition")
+  (message "C-M-j            comment-indent-new-line, make next line comment.")
+  (message "M-;              turn existing line into comments.")
+  (message "M-x              comment-region")
+  (message "Use  mc/insert-numbers to increase number across lines.")
+  (message "Use C-u 1 M-x    mc/insert-numbers to increase number from 1.")
+  (message "C-M-f =          forward-sexp    dash and underscore will be part of the word.")
+  (message "C-M-b =          backward-sexp")
+  (message "C-M-v and C-M-V  scroll the other windown.")
+  (message "C-M-\            indent the whole region")
+  (message "C-M-n  C-M-p     Jump between parenthesis.")
+  (message "C-h a mode       search all commands that has mode.")
+  (message "C-h              which-key window")
+  (message "C-x h            select all")
+  (message "C-u C-<SPc>      twice  move back to original position.")
+  (message "M-%%             query-replace.")
+  (message "M-j              join line.")
+  (message "C-`              yasnippet expand")
+  (message "f1               save all buffers.")
+  (message "f5               compilation")
+  (message "C-c w            whitespace on/off")
+  (message "C-c C-v          quick copy line")
+  (message "C-c C-x          quick cut line")
+  (message "C-return         open line below.")
+  (message "C-S-return       open line up.")
+  (message "M-g M-g          go to line.")
+  (message "M-s              avy-goto-char")
+  (message "C-c C-c          compile c/c++")
+  (message "C-c f            clang-format-region")
+  (message "C-c u            clang-format-buffer")
+  (message "C-c C-j          semantic-ia-fast-jump")
+  (message "C-c C-s          semantic-ia-show-summary")
+  (message "[(ctrl f3)]      cscope-history-forward-line-current-result)")
+  (message "[(ctrl f4)]      cscope-history-backward-line-current-result)")
+  (message "M-;              comment-dwim-2")
+  (message "M-%%             anzu-query-replace")
+  (message "C-M-%%           anzu-query-replace-regexp")
+  (message "C-x n n          narrow")
+  (message "C-x n w          widen")
+  (message "C-x n d          fuction.")
+  (message "C-;              iedit-mode")
+  (message "C-=              er/expand-region")
+  (message "C--              er/contract-region")
+  (message "M-<up arrow>     move current line/region up.")
+  (message "M-<down arrow>   move current line/region down.")
+  (message "C-x C-x          exchange-point-and-mark.")
+  (message "C-x r y          exit multiple-cursor (enter) and while in new buffer hit C-x r y")
+                                        ;(message " C-S-c C-S-c  mc/edit-lines)")"
+  (message "C->              mc/mark-next-like-this")
+  (message "C-<              mc/mark-previous-like-this")
+  (message "C-c C-<          mc/mark-all-like-this")
+  (message "C-c g s          ggtags-find-other-symbol")
+  (message "C-c g h          ggtags-view-tag-history")
+  (message "C-c g r          ggtags-find-reference")
+  (message "C-c g f          ggtags-find-file")
+  (message "C-c g c          ggtags-create-tags")
+  (message "C-c g u          ggtags-update-tags")
+  (message "C-c g a          helm-gtags-tags-in-this-function")
+  (message "M-.              ggtags-find-tag-dwim")
+  (message "M-,              pop-tag-mark")
+  (message "C-c <            ggtags-prev-mark")
+  (message "C-c >            ggtags-next-mark")
+  (message "C-c g a          helm-gtags-tags-in-this-function")
+  (message "C-j              helm-gtags-select")
+  (message "M-.              helm-gtags-dwim")
+  (message "M-,              helm-gtags-pop-stack")
+  (message "C-c <            helm-gtags-previous-history")
+  (message "C-c >            helm-gtags-next-history")
+  (message "*******************") )
 
 
 
