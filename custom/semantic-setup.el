@@ -42,7 +42,12 @@
 ;;(add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
 ;; turn on Semantic
+;; Display current function on the first line.
+(use-package stickyfunc-enhance)
+(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
 (semantic-mode 1)
+;;(require 'stickyfunc-enhance)
+
 ;; turn on ede mode
 (global-ede-mode 1)
 ;; create a project for our program.

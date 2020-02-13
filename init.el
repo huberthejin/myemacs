@@ -23,7 +23,7 @@
   )
 
 (if ( = laptop 2)
-    (adjustWindowSize 230 60 110)
+    (adjustWindowSize 280 80 100)
   )
 
 (if ( = laptop 3)

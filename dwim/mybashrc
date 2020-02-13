@@ -18,7 +18,10 @@ function ta ()
     rm -rf cscope.out
     # generate new info
 
-    find $PWD -type f | grep -v build_arm | grep -v build_x86 | grep -v 3dParty | grep -v 2dParty| egrep -i "\.(c|h|cpp|cc|hpp)$" > cscope.files
-    find $PWD -type f | grep -v build_arm | grep -v build_x86 | grep -v 3dParty | grep -v 2dParty| egrep -i "\.(c|h|cpp|cc|hpp)$" | xargs etags -a
+    find -L ${PWD}/fib -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" > cscope.files
+    find -L ${PWD}/platforms/common/gcplane/lc/fib/engine -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" >> cscope.files
+    find -L ${PWD}/platforms/common/lc/fib/hal -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" >> cscope.files
+    find -L ${PWD}/platforms/common/sse -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" >> cscope.files
+    cat ./cscope.files | xargs etags -a
 
 }
