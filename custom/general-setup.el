@@ -219,6 +219,7 @@
 (require 'comment-dwin-2-setup)
 (require 'anzu-setup)
 (require 'iedit-setup)
+;;(require 'sr-speedbar-setup)
 
 ;; tabbar
 ;;(use-package tabbar
