@@ -75,6 +75,14 @@
   (message "M-,              helm-gtags-pop-stack")
   (message "C-c <            helm-gtags-previous-history")
   (message "C-c >            helm-gtags-next-history")
+
+  (message "C-c C-f          next item in ag results")
+  (message "C-c a a          ag")
+  (message "C-c a d          ag-project-dired")
+  (message "C-c a f          ag-project-files")
+  (message "C-c a p          ag-project")
+  (message "C-c a r          ag-project-regexp")
+
   (message "*******************") )
 
 
@@ -219,6 +227,7 @@
 (require 'comment-dwin-2-setup)
 (require 'anzu-setup)
 (require 'iedit-setup)
+(require 'dumb-jump-setup)
 ;;(require 'sr-speedbar-setup)
 
 ;; tabbar
