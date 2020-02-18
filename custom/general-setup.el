@@ -264,6 +264,9 @@
 
 ;; ***************** define my own functions here **********************
 
+;; find a specific file in specific directory.
+(global-set-key (kbd "C-x f") 'find-name-dired)
+
 (defun quick-copy-line ()
   "Copy the whole line that point is on and move to the beginning of the next line.
     Consecutive calls to this command append each line to the
