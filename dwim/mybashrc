@@ -9,19 +9,18 @@ em() {
 }
 
 
-function ta ()
-{
-    #clean older info
-    rm -rf tags
-    rm -rf TAGS
-    rm -rf cscope.files
-    rm -rf cscope.out
-    # generate new info
-
-    find -L ${PWD}/fib -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" > cscope.files
-    find -L ${PWD}/platforms/common/gcplane/lc/fib/engine -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" >> cscope.files
-    find -L ${PWD}/platforms/common/lc/fib/hal -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" >> cscope.files
-    find -L ${PWD}/platforms/common/sse -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" >> cscope.files
-    cat ./cscope.files | xargs etags -a
-
-}
+#function ta ()
+#{
+#    #clean older info
+#    rm -rf tags
+#    rm -rf TAGS
+#    rm -rf cscope.files
+#    rm -rf cscope.out
+#    # generate new info
+#    find -L ${PWD}/fib -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" > cscope.files
+#    find -L ${PWD}/platforms/common/gcplane/lc/fib/engine -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" >> cscope.files
+#    find -L ${PWD}/platforms/common/lc/fib/hal -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" >> cscope.files
+#    find -L ${PWD}/platforms/common/sse -type f | egrep -i "\.(c|h|cpp|cc|hpp)$" >> cscope.files
+#    cat ./cscope.files | xargs etags -a
+#
+#}
