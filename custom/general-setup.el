@@ -228,6 +228,7 @@
 (require 'anzu-setup)
 (require 'iedit-setup)
 (require 'dumb-jump-setup)
+(require 'rg-setup)
 ;;(require 'sr-speedbar-setup)
 
 ;; tabbar
