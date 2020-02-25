@@ -122,6 +122,9 @@
 ;; No backup files
 (setq make-backup-files nil)
 
+;; Reuse "C-x f" for finding a file
+(global-unset-key (kbd "C-x f"))
+
 ;; Display line number on side
 ;;(global-linum-mode t)
 
@@ -266,7 +269,7 @@
 ;; ***************** define my own functions here **********************
 
 ;; find a specific file in specific directory.
-(global-set-key (kbd "C-x f") 'find-name-dired)
+(global-set-key (kbd "C-x f d") 'find-name-dired)
 
 (defun quick-copy-line ()
   "Copy the whole line that point is on and move to the beginning of the next line.

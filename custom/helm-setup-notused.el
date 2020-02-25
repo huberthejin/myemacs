@@ -78,7 +78,7 @@
     (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
     (global-set-key (kbd "C-c h o") 'helm-occur)
     (global-set-key (kbd "C-c h o") 'helm-occur)
-    (global-set-key (kbd "C-x f") 'helm-for-files)
+    (global-set-key (kbd "C-x f f") 'helm-for-files)
 
     (global-set-key (kbd "C-c h w") 'helm-wikipedia-suggest)
     (global-set-key (kbd "C-c h g") 'helm-google-suggest)
