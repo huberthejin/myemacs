@@ -10,11 +10,12 @@
   )
 
 ;; clang+
-(use-package clang-format+
-  :config
-  (progn
-    (add-hook 'c-mode-common-hook #'clang-format+-mode))
-    (setq clang-format+-context 'modification)
-  )
+;; Used for format during save disabled for now
+;;(use-package clang-format+
+;;  :config
+;;  (progn
+;;    (add-hook 'c-mode-common-hook #'clang-format+-mode))
+;;    (setq clang-format+-context 'modification)
+;;  )
 
 (provide 'clang-setup)

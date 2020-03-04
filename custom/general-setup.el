@@ -3,6 +3,7 @@
 (defun get-help ()
   (interactive)
   (message "*******************")
+  (message "C-x w h          highlight-regexp. highlight words to differnt color")
   (message "C-x C-j          use dired-jump")
   (message "C-x z            repeat commands, hit z to keep repeating.")
   (message "C-M-a	         Go to beginning of a function definition")

@@ -106,8 +106,8 @@
 
     (define-key global-map [remap list-buffers] 'helm-buffers-list)
 
-    (define-key helm-map (kbd "C-<left>") 'helm-previous-source)
-    (define-key helm-map (kbd "C-<right>") 'helm-next-source)
+    (define-key helm-map (kbd "S-<left>") 'helm-previous-source)
+    (define-key helm-map (kbd "S-<right>") 'helm-next-source)
 
     (helm-mode 1)
 
