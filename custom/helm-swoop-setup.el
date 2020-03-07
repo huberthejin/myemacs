@@ -3,7 +3,7 @@
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; Locate the helm-swoop folder to your path
     (use-package helm-swoop
-      :bind (("C-s" . helm-swoop) ;; C-c h o
+      :bind (("C-," . helm-swoop) ;; C-c h o
              ;;("C-c s" . helm-multi-swoop-all)
              )
       :config

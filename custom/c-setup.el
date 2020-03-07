@@ -26,14 +26,17 @@
   (define-key c-mode-map  [(tab)] 'company-complete)
   (define-key c++-mode-map  [(tab)] 'company-complete))
 
+(add-to-list 'auto-mode-alist '("\\.enumh\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.enumc\\'" . c-mode))
 
+(global-set-key (kbd "C-c C-c") nil)
 ;; C-x`  or M-g M-n or M-g n  go to next error.
 ;; M-g p  or  M-g M-p   go to prev error
-(add-hook 'c-mode-common-hook
-          (lambda () (define-key c-mode-base-map (kbd "C-c C-c") 'compile)))
-
-(add-hook 'c++-mode-common-hook
-          (lambda () (define-key c++-mode-base-map (kbd "C-c C-c") 'compile)))
+;;(add-hook 'c-mode-common-hook
+;;          (lambda () (define-key c-mode-base-map (kbd "C-c C-c") 'compile)))
+;;
+;;(add-hook 'c++-mode-common-hook
+;;          (lambda () (define-key c++-mode-base-map (kbd "C-c C-c") 'compile)))
 
 
 (require 'clang-setup)

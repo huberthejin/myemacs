@@ -28,6 +28,8 @@
     ;; key bindings
     (with-eval-after-load 'helm-gtags
       (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+      ;; remove current 'helm-gtags-find-tag binding key
+      (define-key helm-gtags-mode-map (kbd "C-c g d") nil)
       (define-key helm-gtags-mode-map (kbd "C-c g t") 'helm-gtags-find-tag)
       (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
       (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)

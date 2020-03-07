@@ -102,6 +102,10 @@
 ;; y or n is enough
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; turn off sound
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+
 ;; show unncessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook
           (lambda () (interactive)
