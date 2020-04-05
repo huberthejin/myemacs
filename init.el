@@ -2,9 +2,10 @@
 (load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
 
 ;; 1 is vm laptop,
-;; 2 is vm office
+;; 2 is vnc office Monitor
 ;; 3 is vnc office.
-(setq laptop 2)
+;; 4 is vnc home DELL monitor
+(setq laptop 4)
 
 (defun adjustWindowSize (myWinWidth myWinHeight myFontSize)
   "My change window setting."
@@ -28,6 +29,10 @@
 
 (if ( = laptop 3)
     (adjustWindowSize 230 60 100)
+    )
+
+(if ( = laptop 4)
+    (adjustWindowSize 230 80 100)
     )
 
 
