@@ -6,7 +6,9 @@
     (rg-enable-default-bindings)
     (setq rg-custom-type-aliases
   '(("cc" .    "*.[chH]  *.[chH].in  *.cats *.enum *.enumh *.enumc")
-    ("ch" .    "*.[hH]  *.[hH].in  *.cats *.enum *.enumh *.enumc")))
+    ("ch" .    "*.[hH]  *.[hH].in  *.cats *.enum *.enumh *.enumc")
+    ("cmd" .    "*.cmd")
+    ))
     )
   )
 

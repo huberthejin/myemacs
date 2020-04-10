@@ -26,9 +26,9 @@ def main():
                continue
 
            if cnt == 0:
-               cmd = 'find -L ${PWD}/' + line[:-1] + ' -type f | egrep -i "\.(c|h|cpp|cc|hpp|enum|bag)$" > ./cscope.files'
+               cmd = 'find -L ${PWD}/' + line[:-1] + ' -type f | egrep -i "\.(c|h|cpp|cc|hpp|enum|bag|yang)$" > ./cscope.files'
            else:
-               cmd = 'find -L ${PWD}/' + line[:-1] + ' -type f | egrep -i "\.(c|h|cpp|cc|hpp|enum|bag)$" >> ./cscope.files'
+               cmd = 'find -L ${PWD}/' + line[:-1] + ' -type f | egrep -i "\.(c|h|cpp|cc|hpp|enum|bag|yang)$" >> ./cscope.files'
            print("{}\n".format(cmd))
            os.system(cmd)
            cnt += 1
