@@ -36,7 +36,7 @@
   (message "M-g M-g          go to line.")
   (message "M-s              avy-goto-char")
   (message "C-c C-c          compile c/c++")
-  (message "C-c f            clang-format-region")
+  (message "C-c f f          clang-format-region")
   (message "C-c u            clang-format-buffer")
   (message "C-c C-j          semantic-ia-fast-jump")
   (message "C-c C-s          semantic-ia-show-summary")
@@ -399,6 +399,33 @@
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 
+(defun myformat ()
+  (interactive)
+  (save-excursion
+    (let (
+          (beg (line-beginning-position))
+          (end (line-end-position)))
+      (save-restriction
+        (narrow-to-region beg end)
+        (goto-char(point-min))
+        (while (search-forward "(" nil t)
+          (backward-char)
+          (if(not (char-equal ?\s (char-before)  ))
+              (insert " ")
+;;;          (message "yes")
+;;;        (message "no")
+            )
+          (forward-char)
+ ;;;     (replace-match "YYYY" nil t)
+          )
+        )
+      )
+    )
+  )
 
+(global-set-key(kbd "C-c f c") 'myformat)
+
+
+;;;; test_this_btest_boot (int i, int j)
 
 (provide 'general-setup)
