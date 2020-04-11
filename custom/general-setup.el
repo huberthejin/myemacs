@@ -36,8 +36,9 @@
   (message "M-g M-g          go to line.")
   (message "M-s              avy-goto-char")
   (message "C-c C-c          compile c/c++")
-  (message "C-c f f          clang-format-region")
-  (message "C-c u            clang-format-buffer")
+  (message "C-c f c          myformat")
+  (message "C-c f r          clang-format-region")
+  (message "C-c f b          clang-format-buffer")
   (message "C-c C-j          semantic-ia-fast-jump")
   (message "C-c C-s          semantic-ia-show-summary")
   (message "[(ctrl f3)]      cscope-history-forward-line-current-result)")
@@ -126,6 +127,9 @@
 
 ;; No backup files
 (setq make-backup-files nil)
+
+;; No auto-save files
+(setq auto-save-default nil)
 
 ;; Reuse "C-x f" for finding a file
 (global-unset-key (kbd "C-x f"))

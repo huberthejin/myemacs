@@ -2,8 +2,8 @@
 (use-package clang-format
   :config
   (progn
-    (global-set-key (kbd "C-c f f") 'clang-format-region)
-;;;    (global-set-key (kbd "C-c u") 'clang-format-buffer)
+    (global-set-key (kbd "C-c f r") 'clang-format-region)
+    (global-set-key (kbd "C-c f b") 'clang-format-buffer)
     ;;(setq clang-format-style "file")
     ;;(setq clang-format-style "{BasedOnStyle: llvm, IndentWidth: 4, AccessModifierOffset: -4}")
     )
