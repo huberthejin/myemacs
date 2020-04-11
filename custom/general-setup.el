@@ -399,33 +399,77 @@
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
 
-(defun myformat ()
-  (interactive)
-  (save-excursion
-    (let (
-          (beg (line-beginning-position))
-          (end (line-end-position)))
+(defun my-format-function ()
+  (let* (
+        (beg (line-beginning-position))
+        (end (line-end-position))
+        (retstr "0")
+        )
+    (save-excursion
       (save-restriction
         (narrow-to-region beg end)
         (goto-char(point-min))
-        (while (search-forward "(" nil t)
+        (while (search-forward "(" nil 1)
           (backward-char)
+          (setq retstr "1")
           (if(not (char-equal ?\s (char-before)  ))
-              (insert " ")
-;;;          (message "yes")
-;;;        (message "no")
+              (progn
+                (insert " ")
+                ;; return 1 change is already mad
+                )
             )
-          (forward-char)
- ;;;     (replace-match "YYYY" nil t)
+            (forward-char)
           )
         )
       )
+    retstr
+    )
+  )
+
+(defun my-format-asterisk ()
+  (let* (
+         (beg (line-beginning-position))
+         (end (line-end-position))
+         (retstr "0")
+         )
+    (save-excursion
+      (save-restriction
+        (narrow-to-region beg end)
+        (goto-char (point-min))
+        (search-forward "*" nil 1)
+        (setq startpos (point))
+        (if (char-equal ?\s (char-after))
+            ;;  one asterisk
+            (progn
+              ;;(forward-char)
+              (while (search-forward " " nil t)
+                (forward-char)
+                )
+              (insert "*")
+              (goto-char startpos)
+              (delete-backward-char 1)
+              )
+          )
+        )
+      )
+    retstr
+    )
+  )
+
+
+(defun myformat ()
+  (interactive)
+  (setq retval (my-format-function))
+  (if(string= retval "0")
+      (my-format-asterisk)
+    (message "done")
     )
   )
 
 (global-set-key(kbd "C-c f c") 'myformat)
 
+;;;;   int *              abc;
 
-;;;; test_this_btest_boot (int i, int j)
+;;;; test_this_btest_boot (int i, int j
 
 (provide 'general-setup)
