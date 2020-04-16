@@ -89,6 +89,10 @@
 
 
 
+;; ====== EMACS windows (color, size) setting ========
+;;(require 'kaolin-themes-setup)
+(load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
+
 
 ;;(menu-bar-mode -1)
 (tool-bar-mode -1)

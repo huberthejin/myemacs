@@ -1,5 +1,4 @@
-;; ====== EMACS windows (color, size) setting ========
-(load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
+
 
 ;; 1 is vm laptop,
 ;; 2 is vnc office Monitor
