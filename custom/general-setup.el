@@ -452,7 +452,7 @@
             ;;  one asterisk
             (progn
               ;;(forward-char)
-              (while (search-forward " " nil t)
+              (while (char-equal ?\s (following-char))
                 (forward-char)
                 )
               (insert "*")
