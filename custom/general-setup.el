@@ -91,7 +91,9 @@
 
 ;; ====== EMACS windows (color, size) setting ========
 ;;(require 'kaolin-themes-setup)
-(load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
+;;(load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
+(require 'alect-themes-setup)
+(setq frame-background-mode 'light)
 
 
 ;;(menu-bar-mode -1)
