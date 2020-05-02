@@ -49,7 +49,7 @@
 ;;(require 'stickyfunc-enhance)
 
 ;; turn on ede mode
-(global-ede-mode 1)
+;;(global-ede-mode 1)
 ;; create a project for our program.
 ;(ede-cpp-root-project "dcoBuild" :file "/home/hjin/work/dcoBuild/Makefile"
 ;		      :include-path '( "/include/" "/sdk-build/sdkcmn/code/include/app/") )

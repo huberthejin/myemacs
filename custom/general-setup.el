@@ -239,6 +239,7 @@
 
 (require 'volatile-highlights-setup)
 (require 'undo-tree-setup)
+;;(require 'evil-setup)
 (require 'clean-aindent-mode-setup)
 ;;(require 'dtrt-indent-setup)
 (require 'ws-butler-setup)
