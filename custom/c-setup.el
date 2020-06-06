@@ -28,6 +28,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.enumh\\'" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.enumc\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.cp\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.hp\\'" . c-mode))
 
 (global-set-key (kbd "C-c C-c") nil)
 ;; C-x`  or M-g M-n or M-g n  go to next error.
