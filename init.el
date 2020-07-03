@@ -1,4 +1,4 @@
-
+(setq gc-cons-threshold 40000000)
 
 ;; 1 is vm laptop,
 ;; 2 is vnc office Monitor

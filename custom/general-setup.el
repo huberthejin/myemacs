@@ -1,5 +1,7 @@
 
 
+
+
 (defun get-help ()
   (interactive)
   (message "*******************")
@@ -93,6 +95,7 @@
 ;;(require 'kaolin-themes-setup)
 ;;(load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
 (require 'alect-themes-setup)
+;;(require 'faff-theme-setup)
 (setq frame-background-mode 'light)
 
 
@@ -176,6 +179,7 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
+(global-display-line-numbers-mode)
 
 
 
@@ -187,7 +191,7 @@
 ;; use dired-jump   C-x C-j
 (require 'dired-x)
 
-(require 'org-setup)
+;;(require 'org-setup)
 (require 'dired-narrow-setup)
 
 ;; C-x  then wait couple of seconds.
@@ -200,14 +204,14 @@
 (require 'smartparens-setup)
 (require 'avy-setup)
 (require 'expand-region-setup)
-(require 'protobuf-setup)
-(require 'cmake-setup)
+;;(require 'protobuf-setup)
+;;(require 'cmake-setup)
 (require 'column-indicator-setup)
-(require 'magit-setup)
+;;(require 'magit-setup)
 (require 'company-setup)
 (require 'projectile-setup)
 (require 'zygospore-setup)
-(require 'gdb-setup)
+;;(require 'gdb-setup)
 ;; (require 'ggtags-setup)
 (require 'c-setup)
 (require 'cedet-setup)
@@ -478,6 +482,19 @@
   )
 
 (global-set-key(kbd "C-c f c") 'myformat)
+
+
+(defun forward-or-backward-sexp (&optional arg)
+  "Go to the matching parenthesis character if one is adjacent to point."
+  (interactive "^p")
+  (cond ((looking-at "\\s(") (forward-sexp arg))
+        ((looking-back "\\s)" 1) (backward-sexp arg))
+        ;; Now, try to succeed from inside of a bracket
+        ((looking-at "\\s)") (forward-char) (backward-sexp arg))
+        ((looking-back "\\s(" 1) (backward-char) (forward-sexp arg))) )
+
+(global-set-key(kbd "C-%") 'forward-or-backward-sexp)
+
 
 ;;;;   int *              abc;
 

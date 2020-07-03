@@ -1,0 +1,293 @@
+
+
+Paste in insert mode          	Ctrl-r *
+
+Two basic things: Modal Editing and Operators.
+
+d$ delete to the end of line.
+c2/end<return>  Change text from cursor through next two occurrences of "end"
+d2w : delete + two + words.  operator count motion
+Paste in insert mode    ----------   Ctrl-r *
+:h search-term  Search for help
+:bd    to exit (buffer delete)
+UpperCase ususally supersize the lower case actions.
+ lowercase i Insert text at cursor
+Uppercase I insert text at start of line.
+w Move forward by one word
+W Move forward and treat continuous line as one word.
+b Move backward by one one word
+! means forcefully like :q!
+yy yank line
+p Past below cursor
+P Past above cursor
+fN Jump forward to firt "N"
+3fN Jump forward to third "N"
+6l  forward 6 letters
+2j Down 2 lines
+w Forward one word
+3w forward 3 words
+u  Undo
+Ctrl-R Redo
+:w  write file /save
+:w!  Overwrite without confirmation
+:q Quit
+:wq!  Write& Quit
+vim -N example.conf     -N means Not compatible with vi.
+Block cursor indicates Normal mode
+: syntax enable     - syntax highlighting.
+:set syntax=apache
+:set hidden
+o  Insert a blank line below and go into Insert mode.
+cw  Change word
+wi Move to next word and switch to insert mode.
+:wq!  newfile.txt   write to a new file.
+:w !sudo tee %
+:e filename.txt    Edit a file
+f8  go to '8'
+r9  replace with '9'
+:set hlsearch
+: set incsearch
+:%s/abc/de/gc  -   % search current buffer, g search all occurrences.  c confirmation
+:set number    - line number
+12G - go to line 12
+gg - go to the top
+G  -  go to the end.
+:cd path - change the working directory. Files can be opened with relative paths. Use TAB and arrows to autocomplete directory names.
+:pwd  - check current directory.
+:set hidden - you'll add it to your permanent configuration soon
+:e .  -- navigate the directory files.
+V  -  enter visual mode (select lines)
+/searchterm  -search for a term
+y  - Yank selected text
+v  - Characterwise visual mode (select characters.)
+: b name  -  Switch to buffer (try TAB and arrows as well)
+:bp  - Previous buffer.
+P  - paste before current line
+Vjjjd    -  select and delete three lines
+c  - change text in visual mode. (delete text and go into insert mode)
+.  - Period, repeat last change
+d2w  - delete 2 words
+:optoins  - show all options.
+
+:set autochdir  -- automatically use the current file's dir as the working dir.
+:set wildmode=list:longest  - Activate TAB auto-completion for file paths.
+gf  - go to file, Jump to file under cursor
+
+Plugins: NERDTree, project, LustyExplorer, Fuzzyfinder.
+
+Ctrl-w s  --Split window horizontally
+Ctrl-w v  -- split vertically
+ctrl-w j   -- Move focus down
+ctrl-w k  -- Move focus up
+ctrl-w J   -- Move buffer up one window
+ctrl-w K  -- Move buffer down one window
+ctrl-w c   -- close window
+ctrl-w o  -- close all but current
+ctrl-w w -- cycle focus
+ctrl-w p  -- focus previous windows
+
+:h window-resize
+:ls  -- list buffers 
+:b3 -- go to buffer #3 (number stays constant while application is running)
+:bn  -- go to next buffer
+:bp  -- go to previous buffer
+:bd  -- delete buffer/close file
+:bf  --  go to first buffer
+:bl  -- go to last buffer.
+:ba  -- buffer all
+plugins: bufexplorer.
+
+
+0  -- line start
+^  -- first char
+e  -- word end
+E  -- code word end
+$  -- line end
+H  -- jump to top of screen
+M  -- jump to middle of screen
+L  -- jump to bottom of screen
+B  -- code word
+b  -- word
+h  -- char
+I  -- char
+w -- word
+W -- code word
+zt  -- scroll near top
+zz -- scroll middle
+zb -- scroll near bottom
+
+5e -- move to the 5th word to the right.
+gm  -- go to middle of the line
+fx  -- go to next "x"
+Fx  -- go to previous "x"S
+;  -- semicolon, repeat the jump
+gk  -- up screen line
+gj  -- down screen line
+42G  -- go to line 42
+42gg -- go to line 42.
+gg  -- go to first line
+G -- go to last line
+
+
+
+set ruler  -- show the cursor position in the status bar.
+set number - show li	ne number on side
+set laststatus=2  -- always show the status bar
+
+
+screen control
+Ctrl -b :  back screen
+Ctrl-u  : 1/2 back screen
+ctrl-y: back line
+ctrl-e : forward line
+ctrl-d : forward 1/2 screen
+ctrl-f :  forward screen
+
+ma -- creae a mark named 'a'
+`a  -- jump to exact line and column
+'a  --  jump to beginning of marked line only.
+lowercase marks (`a `b) are file specific, Uppercase (`A) marks are global.
+d't  -- delete from cursor to mark t.
+`0-`9  -- The location of the cursor when you last exited vim (`0 is most recent)
+''  ``  The position of the cursor before the latest jump
+'.  `.  Location of the last edit
+:marks  -- see a list of marks.
+
+I  -- Move to first non-blank character of line and insert
+a  -- Move one character right and inset
+A - - Move to end of line.
+o -- open a new line below
+O -- open a new line above
+r  -- replace a single character and back to normal mode
+R --  go to replace mode and stay there. Use backspace to restore old characters.
+2f8  -- jump forward to second instance of 8
+c3w -- change the next three words.
+x  -- delete character under cursor
+dd  -- delete current line (also D). count precedes.
+yy  -- yank a line. Also Y
+yw  -- copy from cursor to the end word.
+cc -- change a line (delete and enter insert mode).  Also C
+J  -- join lines
+gJ  -- join lines and keep previous spaces.
+
+2<<  outdent shift, normal mode
+2>>  indent shift, normal mode
+ctrl-d   outdent shift, insert mode
+ctrl-t    indent shift, insert mode
+
+set tabstop =  2      - global table width
+set shiftwidth=2     
+set expandtab        -  use spaces instead of tabs.
+
+{  -- move to beginning of paragraph
+(  --  move to beginning of sentence
+)  --  move to end of sentence
+}  --  move to end of para
+
+%  bounces between parentheses, quotes, and even language-specific blocks.
+
+
+operator     +      extend      +                    object
+change              all delimiters                    word
+delete                inner objects                   Word
+yank                                                             sentence
+visual                                                           paragraph
+                                                                     tag
+                                                                     "  '  [   { 
+
+vi(c    -- same as ci(
+
+=========================================
+Search
+?   backward search
+/   forward search
+n  next match
+*      next current word
+g*     next partial match
+N    previous match
+#    previous current word
+g#   previous partial match
+/h1/+3   3 lines after h1 is found
+/data/e+3     3 characters after data is found
+d/bacon/e<enter>     delete from cursor to the end of a search.
+y?def<enter>     yank/copy from cursor to the beginning of previous "def"
+:%s/bacon/lettuce/   Search and replace first bacon
+:%s/search/replace/g  replace all occurrences in all lines
+:[range]s/{pattern}/{string]/[flags][count]
+flags:      c    confirm
+                i   ignore case
+                I    Case-sensitive
+                n   Show number of matches (non-destructive)
+                p   Print matching lines.
+:%s/a/b/      Leading percent searches all lines in the current files
+:s/a/b/         only search current line
+:.,'a s/a/b/    Search from the cursor(.) to mark a
+Specify a line
+.    current line
++5   five lines down
+-3   three lines up
+1    line1 of buffer
+$    last line of buffer
+%   all lines of buffer
+'t    position of mark 't'
+/pattern/    next line where patter matches (also try ?patter?)
+:s/bacon/lettuce/g10    search next 10 lines
+:'<,'>s/warn/message/      --- Visual mode only . 
+
+
+:[range]g[lobal]/{pattern}/[cmd]
+ #  show matches with line numbers
+ d  delete matching lines
+ y  yank matching lines
+normal {command} execute an extended sequence.
+:g/data/p     print all the lines containing "data".  read only.
+
+
+Search & exec options
+#  -- show line number
+y -- yank/copy matching lines
+d -- delete matching lines.
+:g/parames[:foo}/#  -- show line and line numbers where params[:foo] occurs.
+:g/^$/d   -- delte blank lines.
+:g/pattern/+y  ----yank line after the ones that match
+use v instead g for not matching ones.
+
+:.,+10g/foo/d    delete matches from cursor through next 10 lines
+:.,'f2g/foo/#      show line numbers through 2 lines after mark "f"
+:.,/bar/g/foo/d  delete lines through next line matching 'bar'
+:g./bacon/normal  OBACON is near    --- Add "OBACON is near" before each line that contains bacon
+
+Regular expression syntax styles
+Very Magic              \v             Similar to Perl, Ruby, Python
+Magic                       \m            The default, but awkward
+No Magic                \M             Rarely used
+Very No Magic       \V              Rarely used
+
+Magic    \s  \(  \)   \{n,m}    [  ]  *  \+   \=
+use ack plugin for search
+
+================================
+Ctrl-n    Activate completion, or completion menu for multiple options.
+ctrl-n ctrl-p    next and previous
+
+"ayy    copy current line to register a
+"p        paste from register a.
+""The unnamed register, contains the last deleted text.
+"0p   paste from the zero register (contents of the last yank command)
+:register   show contents of all registers
+"+  system clipboard
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
