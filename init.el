@@ -31,7 +31,7 @@
     )
 
 (if ( = laptop 4)
-    (adjustWindowSize 230 80 110)
+    (adjustWindowSize 280 80 110)
     )
 
 

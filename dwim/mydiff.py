@@ -10,6 +10,11 @@ def handler(signal_received, frame):
     print('SIGINT or CTRL-C detected. Exiting gracefully')
     exit(0)
 
+def get_file_len(fname):
+    with open(fname) as f:
+        for i, l in enumerate(f):
+            pass
+    return i + 1
 
 def main():
    if len(sys.argv) == 1:
@@ -22,6 +27,10 @@ def main():
        print("diff_file {} does not exist. Exiting...\n".format(diff_file))
        sys.exit()
 
+   file_len = get_file_len(diff_file)
+
+   #print("Total {} files".format(file_len))
+
 
    # Create gtaglist file
    with open(diff_file) as fp:
@@ -32,7 +41,7 @@ def main():
 
            # The -- after cached is forcing the filename to be a file even if it is deleted.
            cmd = "cd " + filepath +"; git difftool -y --cached -- " + filename + "; cd -"
-           print( "\n****", cmd, "\n");
+           print( "\n****", cnt+1, "/", file_len, ", ", cmd, "\n");
            os.system(cmd)
            cnt += 1
 

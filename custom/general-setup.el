@@ -92,6 +92,7 @@
 
 
 ;; ====== EMACS windows (color, size) setting ========
+;;(require 'gruvbox-themes-setup)
 ;;(require 'kaolin-themes-setup)
 (load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
 ;;(require 'alect-themes-setup)
