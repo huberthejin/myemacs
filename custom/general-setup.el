@@ -182,8 +182,9 @@
 
 (global-display-line-numbers-mode)
 
-
-
+;; Diplay the full path file name
+(setq frame-title-format
+      (list '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
 
 

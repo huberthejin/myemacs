@@ -4,7 +4,7 @@
 ;; 2 is vnc office Monitor
 ;; 3 is vnc office.
 ;; 4 is vnc home DELL monitor
-(setq laptop 4)
+(setq laptop 2)
 
 (defun adjustWindowSize (myWinWidth myWinHeight myFontSize)
   "My change window setting."
@@ -23,7 +23,7 @@
   )
 
 (if ( = laptop 2)
-    (adjustWindowSize 280 80 90)
+    (adjustWindowSize 240 55 95)
   )
 
 (if ( = laptop 3)
