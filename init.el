@@ -14,6 +14,10 @@
   (add-to-list 'initial-frame-alist `(height . ,myWinHeight))
   (add-to-list 'default-frame-alist `(width . ,myWinWidth))
   (add-to-list 'default-frame-alist `(height . ,myWinHeight))
+
+  ;; Fix the black cursor issue for emacsclient
+  (add-to-list 'default-frame-alist `(cursor-color . "white"))
+
   ;; Set font size to 100/10 = 10 pt.
   (set-face-attribute 'default nil :height myFontSize)
   )

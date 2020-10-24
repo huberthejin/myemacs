@@ -502,4 +502,9 @@
 
 ;;;; test_this_btest_boot (int i, int j
 
+
+;; Fix "Unmatched Text during Lexical Analysis" error.
+(advice-add 'semantic-idle-scheduler-function :around #'ignore)
+
+
 (provide 'general-setup)
