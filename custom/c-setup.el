@@ -31,6 +31,18 @@
 (add-to-list 'auto-mode-alist '("\\.cp\\'" . c-mode))
 (add-to-list 'auto-mode-alist '("\\.hp\\'" . c-mode))
 
+;; Fix the issue that /** has different color
+(defun my-cc-init-hook ()
+  "Initialization hook for CC-mode runs before any other hooks."
+  (setq c-doc-comment-style
+    '((java-mode . javadoc)
+      (pike-mode . autodoc)
+      (c-mode    . javadoc)
+      (c++-mode  . javadoc)))
+  (set-face-foreground 'font-lock-doc-face
+               (face-foreground font-lock-comment-face)))
+(add-hook 'c-initialization-hook 'my-cc-init-hook)
+
 (global-set-key (kbd "C-c C-c") nil)
 ;; C-x`  or M-g M-n or M-g n  go to next error.
 ;; M-g p  or  M-g M-p   go to prev error

@@ -1,6 +1,8 @@
 
 
+alias emd='emacs --daemon'
 alias emc='emacsclient -c'
+alias emk="emacsclient -e '(kill-emacs)'"
 
 # use em to alias emacs
 em() {
