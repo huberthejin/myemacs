@@ -186,7 +186,8 @@
 (setq frame-title-format
       (list '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
 
-
+;; Disable suspend Button
+(global-unset-key [(control z)])
 
 
 ;;;; ============= Individual setting above this line ===========
@@ -497,6 +498,12 @@
 
 (global-set-key(kbd "C-%") 'forward-or-backward-sexp)
 
+;; emacsclient specific init
+;; We set startup directory to current directory.
+(defun init-emacsclient (&optional curdir)
+  (interactive "^p")
+  (with-current-buffer "*scratch*"
+    (setq default-directory (concat curdir "/"))))
 
 ;;;;   int *              abc;
 
