@@ -210,7 +210,7 @@
 ;;(require 'protobuf-setup)
 ;;(require 'cmake-setup)
 (require 'column-indicator-setup)
-;;(require 'magit-setup)
+(require 'magit-setup)
 (require 'company-setup)
 (require 'projectile-setup)
 (require 'zygospore-setup)
