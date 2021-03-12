@@ -55,17 +55,17 @@
 
 
 ;; C-Like syntax highlighting
-(dolist (mode-iter '(c-mode c++-mode glsl-mode java-mode javascript-mode rust-mode))
-  (font-lock-add-keywords
-    mode-iter
-    '(("\\([~^&\|!<>=,.\\+*/%-]\\)" 0 'font-lock-operator-face keep)))
-  (font-lock-add-keywords
-    mode-iter
-    '(("\\([\]\[}{)(:;]\\)" 0 'font-lock-delimit-face keep)))
-  ;; functions
-  (font-lock-add-keywords
-    mode-iter
-    '(("\\([_a-zA-Z][_a-zA-Z0-9]*\\)\s*(" 1 'font-lock-function-name-face keep))))
+;; (dolist (mode-iter '(c-mode c++-mode glsl-mode java-mode javascript-mode rust-mode))
+;;   (font-lock-add-keywords
+;;     mode-iter
+;;     '(("\\([~^&\|!<>=,.\\+*/%-]\\)" 0 'font-lock-operator-face keep)))
+;;   (font-lock-add-keywords
+;;     mode-iter
+;;     '(("\\([\]\[}{)(:;]\\)" 0 'font-lock-delimit-face keep)))
+;;   ;; functions
+;;   (font-lock-add-keywords
+;;     mode-iter
+;;     '(("\\([_a-zA-Z][_a-zA-Z0-9]*\\)\s*(" 1 'font-lock-function-name-face keep))))
 
 
 (require 'clang-setup)
