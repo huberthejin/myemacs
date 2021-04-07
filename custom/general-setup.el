@@ -92,9 +92,10 @@
 
 
 ;; ====== EMACS windows (color, size) setting ========
-;;(require 'gruvbox-themes-setup)
+(require 'gruvbox-themes-setup)
 ;;(require 'kaolin-themes-setup)
-(load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
+;;(require 'moe-theme-setup)
+;;(load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
 ;;(require 'alect-themes-setup)
 ;;(require 'faff-theme-setup)
 ;;(setq frame-background-mode 'light)
