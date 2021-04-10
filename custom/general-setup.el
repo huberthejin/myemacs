@@ -181,6 +181,7 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
+;; line-number will make emcas running slow.
 (global-display-line-numbers-mode)
 
 ;; Diplay the full path file name
@@ -226,6 +227,8 @@
 (require 'ag-setup)
 (require 'wgrep-setup)
 (require 'wgrep-ag-setup)
+
+(require 'ivy-counsel-setup)
 
 ;;(require 'rainbow-delimiters-setup)
 

@@ -116,8 +116,8 @@
     )
   )
 
-(require 'helm-swoop-setup)
-(require 'helm-projectile-setup)
+;;(require 'helm-swoop-setup)
+;;(require 'helm-projectile-setup)
 
 
 
