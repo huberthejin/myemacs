@@ -205,7 +205,7 @@
 (require 'helm-gtags-setup)
 
 (require 'uniquify-setup)
-(require 'yasnippet-setup)
+;;(require 'yasnippet-setup)
 (require 'smartparens-setup)
 (require 'avy-setup)
 (require 'expand-region-setup)
@@ -214,8 +214,8 @@
 (require 'column-indicator-setup)
 (require 'magit-setup)
 (require 'company-setup)
-(require 'projectile-setup)
-(require 'zygospore-setup)
+;;(require 'projectile-setup)
+;;(require 'zygospore-setup)
 ;;(require 'gdb-setup)
 ;; (require 'ggtags-setup)
 (require 'c-setup)
@@ -225,8 +225,8 @@
 (require 'move-text-setup)
 
 (require 'ag-setup)
-(require 'wgrep-setup)
-(require 'wgrep-ag-setup)
+;;(require 'wgrep-setup)
+;;(require 'wgrep-ag-setup)
 
 (require 'ivy-counsel-setup)
 

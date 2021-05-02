@@ -7,9 +7,35 @@
     (ivy-mode 1)
     (setq ivy-use-virtual-buffers t)
     (setq enable-recursive-minibuffers t)
-    (global-set-key (kbd "C-c s") 'swiper)
-    (global-set-key (kbd "C-,") 'swiper-isearch)
+;;    (global-set-key (kbd "C-z") 'swiper)
+;;    (global-set-key (kbd "C-,") 'swiper-isearch)
     ))
+
+;; The following select the word at cursor.
+(defun ivy-with-thing-at-point (cmd)
+  (let ((ivy-initial-inputs-alist
+         (list
+          (cons cmd (thing-at-point 'symbol)))))
+    (funcall cmd)))
+
+;; Example 1
+(defun counsel-ag-thing-at-point ()
+  (interactive)
+  (ivy-with-thing-at-point 'counsel-ag))
+
+;; swiper with word at the cursor
+(defun swiper-thing-at-point ()
+  (interactive)
+  (ivy-with-thing-at-point 'swiper))
+
+;; swiper-isearch with word at the cursor
+(defun swiper-isearch-thing-at-point ()
+  (interactive)
+  (ivy-with-thing-at-point 'swiper-isearch))
+
+(global-set-key (kbd "C-,") 'swiper-isearch-thing-at-point)
+(global-set-key (kbd "C-z") 'swiper-thing-at-point)
+
 
 (use-package counsel)
 ;;  :bind
