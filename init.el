@@ -67,8 +67,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (moe-theme xcscope auto-complete-c-headers auto-complete-config auto-complete company-irony-c-headers irony-eldoc zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu company-irony flycheck-irony flycheck irony))))
+   '(moe-theme xcscope auto-complete-c-headers auto-complete-config auto-complete company-irony-c-headers irony-eldoc zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu company-irony flycheck-irony flycheck irony))
+ '(safe-local-variable-values '((eval when (fboundp 'rainbow-mode) (rainbow-mode 1)))))
 
 ;;============================
 (setq launchdir default-directory)
