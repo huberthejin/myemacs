@@ -14,7 +14,7 @@
 
 (custom-theme-set-faces
      'gruvbox
-     '(region   ((t (:background "#c0c000" ))))
+     '(region   ((t (:background "#c0ca33" ))))
      '(highlight   ((t (:background "#7f400b" :foreground "#f0f0f0")))))
 
 
