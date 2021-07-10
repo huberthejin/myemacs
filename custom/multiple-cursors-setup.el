@@ -8,8 +8,9 @@
 
 ;; When you want to add multiple cursors not based on continuous lines, but based on keywords in the buffer
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-<") 'mc/unmark-next-like-this)
+(global-set-key (kbd "C-M-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-M->") 'mc/unmark-previous-like-this)
 
 (defvar mc--insert-fancy-numbers-increment 1)
 (defvar mc--insert-fancy-numbers-format "%d")
