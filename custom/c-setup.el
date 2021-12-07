@@ -70,5 +70,10 @@
 
 (require 'clang-setup)
 
+;; change the color for 80+ characters
+(require 'whitespace)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face lines-tail))
+(add-hook 'c-mode-common-hook 'whitespace-mode)
 
 (provide 'c-setup)
