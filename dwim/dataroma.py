@@ -14,7 +14,7 @@ import operator
 #debug_level: 0 - nodebug
 #             1 - most important debug
 #             2 - normal debug
-debug_level = 2
+debug_level = 0
 
 wait_sec = 2
 
@@ -184,7 +184,6 @@ def old_count_acqm(tick, outfp):
    # I call it : table, section, entry, column
    # dataCash[table][section][entry][column]
    sc_col_len = len(dataCash["data"][1][0])
-   print( sc_col_len, "**")
    for entry_idx in range(len(dataCash["data"][1])):
       if (dataCash["data"][1][entry_idx][0]["value"] == "Depreciation & Amortization, Total"):
          if (dataCash["data"][1][entry_idx][sc_col_len-1]["name"] == "TTM"):
@@ -442,6 +441,7 @@ def get_dict_values_from_yh(tick, company):
    pb_ratio = 0
    share_num = 0
    share_num_imp = 0
+   close_price = 0
 
    market_cap_str = "0"
    trailing_pe_str = "0"
@@ -452,6 +452,7 @@ def get_dict_values_from_yh(tick, company):
    pb_ratio_str = "0"
    share_num_str = "0"
    share_num_imp_str = "0"
+   close_price_str = "0"
 
    # yahoo
    tick1 = tick.replace(".", "-")
@@ -459,7 +460,6 @@ def get_dict_values_from_yh(tick, company):
    mydbg1(yaurl)
    yareqs = requests.get(yaurl, headers={"User-Agent": "Mozilla/5.0 (Linux; Android 6.0.1; SGP771 Build/32.2.A.0.253; wv)"})
    ya_soup = BeautifulSoup(yareqs.text, 'html.parser')
-
    ya_tbody = ya_soup.find_all('tbody')
    for tbdy in ya_tbody:
       for entry in tbdy.find_all('tr'):
@@ -509,7 +509,6 @@ def get_dict_values_from_yh(tick, company):
       ret_val = 1
       #print(yareqs.text)
 
-   print(tick_count, tick, trailing_pe, trailing_pe_str)
    company["trailing_pe"] = trailing_pe
    company["market_cap"] = market_cap
    company["total_cash"] = total_cash
@@ -522,12 +521,28 @@ def get_dict_values_from_yh(tick, company):
    else:
       company["share_num"] = share_num
 
+   yaurl2= "https://finance.yahoo.com/quote/" + tick1 + "/history?p=" + tick1
+   mydbg1(yaurl2)
+   yareqs2 = requests.get(yaurl2, headers={"User-Agent": "Mozilla/5.0 (Linux; Android 6.0.1; SGP771 Build/32.2.A.0.253; wv)"})
+   ya_soup2 = BeautifulSoup(yareqs2.text, 'html.parser')
+   ya_tbody2 = ya_soup2.find_all('tbody')
+   entry2 = ya_tbody2[0].find('tr')
+   mytds = entry2.find_all('td')
+   close_price_str = mytds[4].find('span').text
+   close_price = convert_num_to_Million(close_price_str)
+   mydbg1("close_price", close_price)
+   company["close_price"] = close_price
+
 
    # garbage collect
    del ya_soup
    del yareqs
    del yaurl
    del ya_tbody
+   del ya_soup2
+   del yareqs2
+   del yaurl2
+   del ya_tbody2
 
    return ret_val, company
 
@@ -566,7 +581,7 @@ def get_dict_values_from_ska(tick, company):
    tick_count+=1
    ret_val = 0
 
-   print (tick_count, tick)
+   mydbg1(tick_count, tick)
 
    tot_rev = 0
    cost_of_rev = 0
@@ -607,38 +622,37 @@ def get_dict_values_from_ska(tick, company):
    # I call it : table, section, entry, column
    # dataCash[table][section][entry][column]
    sc_col_len = len(dataCash["data"][1][0])
-   print( sc_col_len, "**")
    for list1 in dataCash["data"]:
       for sec_entry in list1:
          if (sec_entry[0]["value"] == "Depreciation & Amortization, Total"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
                depreciation_str = sec_entry[sc_col_len-1]["value"]
                depreciation = convert_num_to_Million(depreciation_str)
-               print(depreciation_str, depreciation)
+               mydbg1(depreciation_str, depreciation)
                mydbg1("depreciation", depreciation)
          if (sec_entry[0]["value"] == "Change In Accounts Receivable"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
                receivable_chg_str = sec_entry[sc_col_len-1]["value"]
                receivable_chg = convert_num_to_Million(receivable_chg_str)
-               print(receivable_chg_str, receivable_chg)
+               mydbg1(receivable_chg_str, receivable_chg)
                mydbg1("receivable_chg", receivable_chg)
          if (sec_entry[0]["value"] == "Change In Accounts Payable"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
                payable_chg_str = sec_entry[sc_col_len-1]["value"]
                payable_chg = convert_num_to_Million(payable_chg_str)
-               print(payable_chg_str, payable_chg)
+               mydbg1(payable_chg_str, payable_chg)
                mydbg1("payable_chg", payable_chg)
          if (sec_entry[0]["value"] == "Capital Expenditure"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
                capexp_str = sec_entry[sc_col_len-1]["value"]
                capexp = convert_num_to_Million(capexp_str)
-               print(capexp_str, capexp)
+               mydbg1(capexp_str, capexp)
                mydbg1("capexp", capexp)
          if (sec_entry[0]["value"] == "Sale of Property, Plant, and Equipment"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
                sale_property_str = sec_entry[sc_col_len-1]["value"]
                sale_property = convert_num_to_Million(sale_property_str)
-               print(sale_property_str, sale_property)
+               mydbg1(sale_property_str, sale_property)
                mydbg1("sale_property", sale_property)
    company["depreciation"] = depreciation
    company["receivable_chg"] = receivable_chg
@@ -660,7 +674,6 @@ def get_dict_values_from_ska(tick, company):
    #print(si_reqs.text)
    dataIncm = json.loads(si_reqs.text)
    si_col_len = len(dataIncm["data"][0][1])
-   print( si_col_len, "****")
    for list1 in dataIncm["data"]:
       for sec_entry in list1:
          if (sec_entry[0]["value"] == "Total Revenues"):
@@ -812,14 +825,18 @@ def do_evaluate_one_tick(tick):
    capexp = company["capexp"]
    sale_property = company["sale_property"]
    share_num = company["share_num"]
+   close_price = company["close_price"]
 
    owner_earnings = net_income + income_tax + depreciation + receivable_chg + \
                     payable_chg + capexp + sale_property
 
    tencap_price = (owner_earnings*10)/share_num
    tencap_price_fmt = "{:.2f}".format(tencap_price)
+   price_ratio = close_price/tencap_price
+   price_ratio_fmt = "{:.2f}".format(price_ratio)
 
-   print("tencap_price: ", tencap_price_fmt)
+   print("close_price: ", close_price)
+   print("tencap_price: ", tencap_price_fmt, "     [ ", price_ratio_fmt, " ]")
 
 
 
