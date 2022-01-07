@@ -575,7 +575,8 @@ def do_save_yh_to_json_file():
    outfp.write(json.dumps(companylist, indent=4, sort_keys=True))
 
 
-def get_dict_values_from_ska(tick, company):
+# The idx is 1 for TTM, 2 for this year, ...
+def get_dict_values_from_ska(tick, company, idx):
    # Initialize the variables.
    global tick_count
    tick_count+=1
@@ -626,31 +627,31 @@ def get_dict_values_from_ska(tick, company):
       for sec_entry in list1:
          if (sec_entry[0]["value"] == "Depreciation & Amortization, Total"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
-               depreciation_str = sec_entry[sc_col_len-1]["value"]
+               depreciation_str = sec_entry[sc_col_len-idx]["value"]
                depreciation = convert_num_to_Million(depreciation_str)
                mydbg1(depreciation_str, depreciation)
                mydbg1("depreciation", depreciation)
          if (sec_entry[0]["value"] == "Change In Accounts Receivable"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
-               receivable_chg_str = sec_entry[sc_col_len-1]["value"]
+               receivable_chg_str = sec_entry[sc_col_len-idx]["value"]
                receivable_chg = convert_num_to_Million(receivable_chg_str)
                mydbg1(receivable_chg_str, receivable_chg)
                mydbg1("receivable_chg", receivable_chg)
          if (sec_entry[0]["value"] == "Change In Accounts Payable"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
-               payable_chg_str = sec_entry[sc_col_len-1]["value"]
+               payable_chg_str = sec_entry[sc_col_len-idx]["value"]
                payable_chg = convert_num_to_Million(payable_chg_str)
                mydbg1(payable_chg_str, payable_chg)
                mydbg1("payable_chg", payable_chg)
          if (sec_entry[0]["value"] == "Capital Expenditure"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
-               capexp_str = sec_entry[sc_col_len-1]["value"]
+               capexp_str = sec_entry[sc_col_len-idx]["value"]
                capexp = convert_num_to_Million(capexp_str)
                mydbg1(capexp_str, capexp)
                mydbg1("capexp", capexp)
          if (sec_entry[0]["value"] == "Sale of Property, Plant, and Equipment"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
-               sale_property_str = sec_entry[sc_col_len-1]["value"]
+               sale_property_str = sec_entry[sc_col_len-idx]["value"]
                sale_property = convert_num_to_Million(sale_property_str)
                mydbg1(sale_property_str, sale_property)
                mydbg1("sale_property", sale_property)
@@ -678,28 +679,28 @@ def get_dict_values_from_ska(tick, company):
       for sec_entry in list1:
          if (sec_entry[0]["value"] == "Total Revenues"):
             if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               total_revenues_str = sec_entry[si_col_len-1]["value"]
+               total_revenues_str = sec_entry[si_col_len-idx]["value"]
             tot_rev = convert_num_to_Million(total_revenues_str)
             mydbg1("tot_rev", tot_rev)
 
          if (sec_entry[0]["value"] == "Cost Of Revenues"):
             if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               cost_of_revenue_str = sec_entry[si_col_len-1]["value"]
+               cost_of_revenue_str = sec_entry[si_col_len-idx]["value"]
             cost_of_rev = convert_num_to_Million(cost_of_revenue_str)
             mydbg1("cost_of_rev", cost_of_rev)
          if (sec_entry[0]["value"] == "Selling General & Admin Expenses"):
             if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               sga_str = sec_entry[si_col_len-1]["value"]
+               sga_str = sec_entry[si_col_len-idx]["value"]
             sga = convert_num_to_Million(sga_str)
             mydbg1("sga", sga)
          if (sec_entry[0]["value"] == "Net Income"):
             if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               net_income_str = sec_entry[si_col_len-1]["value"]
+               net_income_str = sec_entry[si_col_len-idx]["value"]
             net_income = convert_num_to_Million(net_income_str)
             mydbg1("net_income", net_income)
          if (sec_entry[0]["value"] == "Income Tax Expense"):
             if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               income_tax_str = sec_entry[si_col_len-1]["value"]
+               income_tax_str = sec_entry[si_col_len-idx]["value"]
             income_tax = convert_num_to_Million(income_tax_str)
             mydbg1("income_tax", income_tax)
 
@@ -804,18 +805,8 @@ def calc_sort_all_acqms(file1):
    print(json.dumps(sorted_cplist2, indent=4))
 
 
-## This will evaluate one stock
-def do_evaluate_one_tick(tick):
-   company = dict()
-   result = get_dict_values_from_ska(tick, company)
-   if result[0] != 0:
-      return
-
-   result = get_dict_values_from_yh(tick, company)
-   if result[0] != 0:
-      return
-
-   print(json.dumps(company, indent=4, sort_keys=True))
+def do_one_tick_calculation(company):
+   print(json.dumps(company, indent=4, sort_keys=False))
 
    net_income = company["net_income"]
    income_tax = company["income_tax"]
@@ -839,12 +830,33 @@ def do_evaluate_one_tick(tick):
    print("tencap_price: ", tencap_price_fmt, "     [ ", price_ratio_fmt, " ]")
 
 
+## This will evaluate one stock
+def do_evaluate_one_tick(tick, idx):
+   company = dict()
+   company["name"] = tick
+   result = get_dict_values_from_ska(tick, company, idx)
+   if result[0] != 0:
+      return
+
+   company["dash"] = "------"
+
+   result = get_dict_values_from_yh(tick, company)
+   if result[0] != 0:
+      return
+
+   outputfile = "/home/hjin/test/one_tick"
+   outfp = open(outputfile, 'w+')
+   outfp.write(json.dumps(company, indent=4, sort_keys=False))
+
+   do_one_tick_calculation(company)
 
 
+def do_evaluate_file_one_tick():
+   infile = "/home/hjin/test/one_tick"
+   with open(infile) as f1:
+      company = json.load(f1)
 
-
-
-
+   do_one_tick_calculation(company)
 
 
 # https://seekingalpha.com/symbol/FDX/financials-data?period_type=annual&statement_type=income-statement&order_type=latest_right&is_pro=false
@@ -887,8 +899,12 @@ def main():
        print("         eg: python -u ./dataroma.py ska-to-file")
        print("    merge-json-files file1 file2 -- add file2 json contents to file1")
        print("         eg: python -u ./dataroma.py merge-json-files ./yh_data ./ska_data ./merge_data")
-       print("    eval-one -- evaluate one tick")
+       print("    eval-one -- evaluate one tick (TTM)")
        print("         eg: python -u ./dataroma.py eval-one FB")
+       print("    eval-one-2 -- evaluate one tick (last year)")
+       print("         eg: python -u ./dataroma.py eval-one-2 FB")
+       print("    eval-one-file -- evaluate one tick file")
+       print("         eg: python -u ./dataroma.py eval-one-file")
        print("    change path1 path2")
        sys.exit()
 
@@ -927,7 +943,11 @@ def main():
    elif args.cmd == "merge-json-files":
       do_merge_file2_to_file1(args.path1, args.path2, args.path3)
    elif args.cmd == "eval-one":
-      do_evaluate_one_tick(args.path1.upper())
+      do_evaluate_one_tick(args.path1.upper(), 1)
+   elif args.cmd == "eval-one-2":
+      do_evaluate_one_tick(args.path1.upper(), 2)
+   elif args.cmd == "eval-one-file":
+      do_evaluate_file_one_tick()
 
 
 
