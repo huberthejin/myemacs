@@ -10,11 +10,13 @@ import json
 import time
 import gc
 import operator
+import re
+import numpy_financial as npf
 
 #debug_level: 0 - nodebug
 #             1 - most important debug
 #             2 - normal debug
-debug_level = 0
+debug_level = 2
 
 wait_sec = 2
 
@@ -334,9 +336,9 @@ def convert_num_to_unit(numStr):
       numInUnit = float(0)
    else:
       if "(" in numStr:
-         numInUnit = float(numStr.replace('(','').replace(')','').replace(',','')) * -1
+         numInUnit = float(numStr.replace('(','').replace(')','').replace(',','').replace('$','')) * -1
       else:
-         numInUnit = float(numStr.replace(',',''))
+         numInUnit = float(numStr.replace(',','').replace('$',''))
 
    mydbg2("numInUnit", numInUnit)
    return numInUnit
@@ -594,6 +596,7 @@ def get_dict_values_from_ska(tick, company, idx):
    payable_chg = 0
    capexp = 0
    sale_property = 0
+   cash_from_operations = 0
 
 
    total_revenues_str = "0"
@@ -606,6 +609,7 @@ def get_dict_values_from_ska(tick, company, idx):
    payable_chg_str = "0"
    capexp_str = "0"
    sale_property_str = "0"
+   cash_from_operations_str = "0"
 
    # seekingalpha -- cashflow
    sc_cookie = "machine_cookie=6578850866496; LAST_VISITED_PAGE=%7B%22pathname%22%3A%22https%3A%2F%2Fseekingalpha.com%2Fsymbol%2FFL%22%2C%22pageKey%22%3A%2286d8c17e-aa3f-450c-9b3c-b62f3b35a1fe%22%7D; _sasource=; session_id=3acc472c-e39c-44f4-b6df-93974e64803c; __tbc=%7Bkpbx%7DbtdrSAgVV5I128fRrSmlrLv1ifW90tl5l_rSFf7cwwFrFQSqmH32zt9E7LF-3SryU2BSWXJqOch0mQBg1e109HOH_-jesnQT8GhuDc4aXLs; __pat=-18000000; __pvi=%7B%22id%22%3A%22v-2022-01-04-20-00-50-960-OxWw2H7IgWxffXlP-eab022edb31c73ccc1a75a24e3f894de%22%2C%22domain%22%3A%22.seekingalpha.com%22%2C%22time%22%3A1641344453799%7D; xbc=%7Bkpbx%7D17GMJyZl-q9yJCCRqU_rdWwnsWWughOqJJRQgdIgu-VONLUUyaK8eful4YGDryK2fIzndfJqA0nn9dycxA5-nymOmlIxhG0ukFUwt3SxeYmnhdUNZp9rM7EF2H0XwkaeGQAkExim4a1C90mGcz1LZvvW2EYCLl50udCLO_YdQK0oElIAPWxEhQoqBNA49x7vBhBFYRCKLb61f98jWrMHxrb98zYwqti3S_2wf2m8mGM; sailthru_pageviews=1; prism_25946650=97d4bc9f-791c-49b6-8ba1-6c4ebb54961a; _gcl_au=1.1.96885177.1641344452; _uetsid=edf023e06dc211ec83e51f9a133707af; _uetvid=edf02e706dc211ec91e31171f54b27ae; pxcts=eef0e350-6dc2-11ec-9ca6-ff6e210dfdb1; _pxvid=eef08888-6dc2-11ec-b60d-684b6469594d; _pxde=556f5c0340af6c02edb0bd0fb48d698eb8c233607ca7bad99d714bed164dbe55:eyJ0aW1lc3RhbXAiOjE2NDEzNDQ0NTUyNDksImZfa2IiOjB9; _ga=GA1.2.779398346.1641344455; _gid=GA1.2.858399983.1641344455; _gat_UA-142576245-4=1; _dc_gtm_UA-142576245-1=1; _clck=7xt26o|1|exv|0; _fbp=fb.1.1641344454873.847334432; _clsk=38dxri|1641344455125|1|0|b.clarity.ms/collect"
@@ -615,6 +619,103 @@ def get_dict_values_from_ska(tick, company, idx):
                  "Accept-Encoding": "gzip, deflate, br", \
                  "Accept-Language": "en-US,en;q=0.5", \
                  "Cookie": sc_cookie}
+
+   rev_list = []
+   grosspft_list = []
+   eps_list = []
+   bvps_list = []
+   fcf_list = []
+
+   # seekingalpha -- income
+   sk_url_income = "https://seekingalpha.com/symbol/" + tick + "/financials-data?period_type=annual&statement_type=income-statement&order_type=latest_right&is_pro=false"
+   mydbg1(sk_url_income)
+   #si_reqs = requests.get(sk_url_income, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0"})
+   si_reqs = requests.get(sk_url_income, headers=sc_headers)
+   if "been denied" in si_reqs.text:
+      ret_val = 1
+      print("It is denied ****")
+      return ret_val, company
+   #print(si_reqs.text)
+   dataIncm = json.loads(si_reqs.text)
+   si_col_len = len(dataIncm["data"][0][1])
+   for list1 in dataIncm["data"]:
+      for sec_entry in list1:
+         if (sec_entry[0]["value"] == "Total Revenues"):
+            for lidx in range(2, si_col_len):
+               if "svg" not in sec_entry[lidx]["value"]:
+                  rev_lstr = sec_entry[lidx]["value"]
+                  rev_list.append(convert_num_to_Million(rev_lstr))
+         if (sec_entry[0]["value"] == "Gross Profit"):
+            for lidx in range(2, si_col_len):
+               if "svg" not in sec_entry[lidx]["value"]:
+                  grosspft_lstr = sec_entry[lidx]["value"]
+                  grosspft_list.append(convert_num_to_Million(grosspft_lstr))
+         if (sec_entry[0]["value"] == "Diluted EPS"):
+            for lidx in range(2, si_col_len):
+               if "svg" not in sec_entry[lidx]["value"]:
+                  eps_lstr = sec_entry[lidx]["value"]
+                  eps_list.append(convert_num_to_unit(eps_lstr))
+
+         if (sec_entry[0]["value"] == "Total Revenues"):
+            if (sec_entry[si_col_len-1]["name"] == "TTM"):
+               total_revenues_str = sec_entry[si_col_len-idx]["value"]
+            tot_rev = convert_num_to_Million(total_revenues_str)
+            mydbg1("tot_rev", tot_rev)
+
+         if (sec_entry[0]["value"] == "Cost Of Revenues"):
+            if (sec_entry[si_col_len-1]["name"] == "TTM"):
+               cost_of_revenue_str = sec_entry[si_col_len-idx]["value"]
+            cost_of_rev = convert_num_to_Million(cost_of_revenue_str)
+            mydbg1("cost_of_rev", cost_of_rev)
+         if (sec_entry[0]["value"] == "Selling General & Admin Expenses"):
+            if (sec_entry[si_col_len-1]["name"] == "TTM"):
+               sga_str = sec_entry[si_col_len-idx]["value"]
+            sga = convert_num_to_Million(sga_str)
+            mydbg1("sga", sga)
+         if (sec_entry[0]["value"] == "Net Income"):
+            if (sec_entry[si_col_len-1]["name"] == "TTM"):
+               net_income_str = sec_entry[si_col_len-idx]["value"]
+            net_income = convert_num_to_Million(net_income_str)
+            mydbg1("net_income", net_income)
+         if (sec_entry[0]["value"] == "Income Tax Expense"):
+            if (sec_entry[si_col_len-1]["name"] == "TTM"):
+               income_tax_str = sec_entry[si_col_len-idx]["value"]
+            income_tax = convert_num_to_Million(income_tax_str)
+            mydbg1("income_tax", income_tax)
+
+   company["rev_list"] = rev_list
+   company["grosspft_list"] = grosspft_list
+   company["eps_list"] = eps_list
+   company["tot_rev"] = tot_rev
+   company["cost_of_rev"] = cost_of_rev
+   company["sga"] = sga
+   company["net_income"] = net_income
+   company["income_tax"] = income_tax
+
+   time.sleep(wait_sec)
+
+   #seekingalpha -- balance
+   sk_url_balance = "https://seekingalpha.com/symbol/" + tick + "/financials-data?period_type=annual&statement_type=balance-sheet&order_type=latest_right&is_pro=false"
+   mydbg1(sk_url_balance)
+   sb_reqs = requests.get(sk_url_balance, headers=sc_headers)
+   #print(sb_reqs.text)
+   balSheet = json.loads(sb_reqs.text)
+   # I call it : table, section, entry, column
+   # dataCash[table][section][entry][column]
+   sb_col_len = len(balSheet["data"][1][0])
+   for list1 in balSheet["data"]:
+      for sec_entry in list1:
+         if (sec_entry[0]["value"] == "Book Value / Share"):
+            for lidx in range(2, sb_col_len):
+               if "svg" not in sec_entry[lidx]["value"]:
+                  bvps_lstr = sec_entry[lidx]["value"]
+                  bvps_list.append(convert_num_to_unit(bvps_lstr))
+
+   company["bvps_list"] = bvps_list
+
+   time.sleep(wait_sec)
+
+   # seekingalpha -- cashflow
    sk_url_cash = "https://seekingalpha.com/symbol/" + tick + "/financials-data?period_type=annual&statement_type=cash-flow-statement&order_type=latest_right&is_pro=false"
    mydbg1(sk_url_cash)
    sc_reqs = requests.get(sk_url_cash, headers=sc_headers)
@@ -625,6 +726,11 @@ def get_dict_values_from_ska(tick, company, idx):
    sc_col_len = len(dataCash["data"][1][0])
    for list1 in dataCash["data"]:
       for sec_entry in list1:
+         if (sec_entry[0]["value"] == "Levered Free Cash Flow"):
+            for lidx in range(2, sc_col_len):
+               if "svg" not in sec_entry[lidx]["value"]:
+                  fcf_lstr = sec_entry[lidx]["value"]
+                  fcf_list.append(convert_num_to_Million(fcf_lstr))
          if (sec_entry[0]["value"] == "Depreciation & Amortization, Total"):
             if (sec_entry[sc_col_len-1]["name"] == "TTM"):
                depreciation_str = sec_entry[sc_col_len-idx]["value"]
@@ -655,60 +761,19 @@ def get_dict_values_from_ska(tick, company, idx):
                sale_property = convert_num_to_Million(sale_property_str)
                mydbg1(sale_property_str, sale_property)
                mydbg1("sale_property", sale_property)
+         if (sec_entry[0]["value"] == "Cash from Operations"):
+            if (sec_entry[sc_col_len-1]["name"] == "TTM"):
+               cash_from_operations_str = sec_entry[sc_col_len-idx]["value"]
+               cash_from_operations = convert_num_to_Million(cash_from_operations_str)
+               mydbg1(cash_from_operations_str, cash_from_operations)
+               mydbg1("cash_from_operations", cash_from_operations)
    company["depreciation"] = depreciation
    company["receivable_chg"] = receivable_chg
    company["payable_chg"] = payable_chg
+   company["cash_from_operations"] = cash_from_operations
    company["capexp"] = capexp
    company["sale_property"] = sale_property
-
-   time.sleep(wait_sec)
-
-   # seekingalpha -- income
-   sk_url_income = "https://seekingalpha.com/symbol/" + tick + "/financials-data?period_type=annual&statement_type=income-statement&order_type=latest_right&is_pro=false"
-   mydbg1(sk_url_income)
-   #si_reqs = requests.get(sk_url_income, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0"})
-   si_reqs = requests.get(sk_url_income, headers=sc_headers)
-   if "been denied" in si_reqs.text:
-      ret_val = 1
-      print("It is denied ****")
-      return ret_val, company
-   #print(si_reqs.text)
-   dataIncm = json.loads(si_reqs.text)
-   si_col_len = len(dataIncm["data"][0][1])
-   for list1 in dataIncm["data"]:
-      for sec_entry in list1:
-         if (sec_entry[0]["value"] == "Total Revenues"):
-            if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               total_revenues_str = sec_entry[si_col_len-idx]["value"]
-            tot_rev = convert_num_to_Million(total_revenues_str)
-            mydbg1("tot_rev", tot_rev)
-
-         if (sec_entry[0]["value"] == "Cost Of Revenues"):
-            if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               cost_of_revenue_str = sec_entry[si_col_len-idx]["value"]
-            cost_of_rev = convert_num_to_Million(cost_of_revenue_str)
-            mydbg1("cost_of_rev", cost_of_rev)
-         if (sec_entry[0]["value"] == "Selling General & Admin Expenses"):
-            if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               sga_str = sec_entry[si_col_len-idx]["value"]
-            sga = convert_num_to_Million(sga_str)
-            mydbg1("sga", sga)
-         if (sec_entry[0]["value"] == "Net Income"):
-            if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               net_income_str = sec_entry[si_col_len-idx]["value"]
-            net_income = convert_num_to_Million(net_income_str)
-            mydbg1("net_income", net_income)
-         if (sec_entry[0]["value"] == "Income Tax Expense"):
-            if (sec_entry[si_col_len-1]["name"] == "TTM"):
-               income_tax_str = sec_entry[si_col_len-idx]["value"]
-            income_tax = convert_num_to_Million(income_tax_str)
-            mydbg1("income_tax", income_tax)
-
-   company["tot_rev"] = tot_rev
-   company["cost_of_rev"] = cost_of_rev
-   company["sga"] = sga
-   company["net_income"] = net_income
-   company["income_tax"] = income_tax
+   company["fcf_list"] = fcf_list
 
    return ret_val, company
 
@@ -805,9 +870,51 @@ def calc_sort_all_acqms(file1):
    print(json.dumps(sorted_cplist2, indent=4))
 
 
-def do_one_tick_calculation(company):
-   print(json.dumps(company, indent=4, sort_keys=False))
+def do_calc_growth_rate(data_list):
+   start_idx = -1
+   end_idx = -1
+   compound_rate = 0
 
+   size = len(data_list)
+   for idx in range(0,6):
+      if data_list[idx] > 0:
+         start_idx = idx
+         break
+
+   if start_idx != -1:
+      for idx in reversed(range(0,6)):
+         if data_list[idx] > 0 and data_list[idx] >= data_list[start_idx]:
+            end_idx = idx
+            break
+   if start_idx != -1 and end_idx > start_idx:
+      compound_rate = (data_list[end_idx]/data_list[start_idx])**(1/(end_idx-start_idx))-1
+      compound_rate_fmt = round(compound_rate, 4)
+
+   mydbg2("compound_rate", round(compound_rate_fmt*100, 2), start_idx, end_idx, data_list[start_idx], data_list[end_idx])
+   return compound_rate_fmt
+
+
+
+def do_one_tick_calculation(company):
+   ## ?? not working.
+   output = json.dumps(company, indent=4, sort_keys=False)
+   re_output = re.sub(r'",\s+', '", ', output)
+   print(re_output)
+
+   print("==========")
+   rev_growth = do_calc_growth_rate(company["rev_list"])
+   print("rev_growth: ", rev_growth)
+   grosspft_growth = do_calc_growth_rate(company["grosspft_list"])
+   print("grosspft_growth: ", grosspft_growth)
+   eps_growth = do_calc_growth_rate(company["eps_list"])
+   print("eps_growth: ", eps_growth)
+   bvps_growth = do_calc_growth_rate(company["bvps_list"])
+   print("bvps_growth: ", bvps_growth)
+   fcf_growth = do_calc_growth_rate(company["fcf_list"])
+   print("fcs_growth: ", fcf_growth)
+
+
+   # tencap calculation
    net_income = company["net_income"]
    income_tax = company["income_tax"]
    depreciation = company["depreciation"]
@@ -826,8 +933,80 @@ def do_one_tick_calculation(company):
    price_ratio = close_price/tencap_price
    price_ratio_fmt = "{:.2f}".format(price_ratio)
 
-   print("close_price: ", close_price)
-   print("tencap_price: ", tencap_price_fmt, "     [ ", price_ratio_fmt, " ]")
+   print("**close_price: ", close_price)
+   print("**tencap_price: ", tencap_price_fmt, "     [ ", price_ratio_fmt, " ]")
+
+   # pabriDcf
+
+   growth_rate = 0
+   growth_rate_name = ""
+   if (bvps_growth != 0):
+      growth_rate = bvps_growth
+      growth_rate_name = "bvps_growth"
+   elif (eps_growth != 0):
+      growth_rate = eps_growth
+      growth_rate_name = "eps_growth"
+   elif (grosspft_growth != 0):
+      growth_rate = grosspft_growth
+      growth_rate_name = "grosspft_growth"
+   elif (rev_growth != 0):
+      growth_rate = rev_growth
+      growth_rate_name = "rev_growth"
+
+   print("growth_rate: ", growth_rate, growth_rate_name)
+   cash_from_operations = company["cash_from_operations"]
+   capexp = company["capexp"]
+   sale_property = company["sale_property"]
+   total_cash = company["total_cash"]
+   total_debt = company["total_debt"] *-1
+   share_num = company["share_num"]
+
+   fcf_y0 = cash_from_operations + capexp + sale_property
+   discount_rate = 0.1
+   fcf_y1 = fcf_y0 * (1 + growth_rate)
+   fcf_y2 = fcf_y1 * (1 + growth_rate)
+   fcf_y3 = fcf_y2 * (1 + growth_rate)
+   fcf_y4 = fcf_y3 * (1 + growth_rate)
+   fcf_y5 = fcf_y4 * (1 + growth_rate)
+   fcf_y6 = fcf_y5 * (1 + growth_rate)
+   fcf_y7 = fcf_y6 * (1 + growth_rate)
+   fcf_y8 = fcf_y7 * (1 + growth_rate)
+   fcf_y9 = fcf_y8 * (1 + growth_rate)
+   fcf_y10 = fcf_y9 * (1 + growth_rate)
+
+   fcf_y1_dcf =  npf.pv(discount_rate, 1, 0, fcf_y1)*-1
+   fcf_y2_dcf =  npf.pv(discount_rate, 2, 0, fcf_y2)*-1
+   fcf_y3_dcf =  npf.pv(discount_rate, 3, 0, fcf_y3)*-1
+   fcf_y4_dcf =  npf.pv(discount_rate, 4, 0, fcf_y4)*-1
+   fcf_y5_dcf =  npf.pv(discount_rate, 5, 0, fcf_y5)*-1
+   fcf_y6_dcf =  npf.pv(discount_rate, 6, 0, fcf_y6)*-1
+   fcf_y7_dcf =  npf.pv(discount_rate, 7, 0, fcf_y7)*-1
+   fcf_y8_dcf =  npf.pv(discount_rate, 8, 0, fcf_y8)*-1
+   fcf_y9_dcf =  npf.pv(discount_rate, 9, 0, fcf_y9)*-1
+   fcf_y10_dcf =  npf.pv(discount_rate, 10, 0, fcf_y10)*-1
+   termination_value = fcf_y10_dcf *10
+   current_npv = fcf_y1_dcf + fcf_y2_dcf + fcf_y3_dcf + fcf_y4_dcf + fcf_y5_dcf + \
+                 fcf_y6_dcf + fcf_y7_dcf + fcf_y8_dcf + fcf_y9_dcf + fcf_y10_dcf + \
+                 termination_value+ total_cash + total_debt
+
+   print("#####")
+   print(fcf_y1, fcf_y1_dcf)
+   print(fcf_y8, fcf_y8_dcf)
+   #print(current_npv)
+
+   intrinsic_value_per_share = current_npv/share_num
+   pabridcf_price = intrinsic_value_per_share/2
+
+   print("**pabriDcf: ", round(pabridcf_price, 2), \
+         "     intrinsic: ", round(intrinsic_value_per_share, 2))
+
+   # payback (eight years)
+   payback_sum = fcf_y1 + fcf_y2 + fcf_y3 + fcf_y4 + fcf_y5 + \
+                 fcf_y6 + fcf_y7 + fcf_y8
+
+   payback_price = payback_sum/share_num
+
+   print("**payback_price: ", round(payback_price))
 
 
 ## This will evaluate one stock
@@ -857,6 +1036,7 @@ def do_evaluate_file_one_tick():
       company = json.load(f1)
 
    do_one_tick_calculation(company)
+
 
 
 # https://seekingalpha.com/symbol/FDX/financials-data?period_type=annual&statement_type=income-statement&order_type=latest_right&is_pro=false
@@ -899,11 +1079,9 @@ def main():
        print("         eg: python -u ./dataroma.py ska-to-file")
        print("    merge-json-files file1 file2 -- add file2 json contents to file1")
        print("         eg: python -u ./dataroma.py merge-json-files ./yh_data ./ska_data ./merge_data")
-       print("    eval-one -- evaluate one tick (TTM)")
-       print("         eg: python -u ./dataroma.py eval-one FB")
-       print("    eval-one-2 -- evaluate one tick (last year)")
-       print("         eg: python -u ./dataroma.py eval-one-2 FB")
-       print("    eval-one-file -- evaluate one tick file")
+       print("    eval-one tick idx -- evaluate one tick (1 - TTM, 2 - last year etc)")
+       print("         eg: python -u ./dataroma.py eval-one FB 1")
+       print("    eval-one-file -- evaluate one_tick file")
        print("         eg: python -u ./dataroma.py eval-one-file")
        print("    change path1 path2")
        sys.exit()
@@ -943,9 +1121,7 @@ def main():
    elif args.cmd == "merge-json-files":
       do_merge_file2_to_file1(args.path1, args.path2, args.path3)
    elif args.cmd == "eval-one":
-      do_evaluate_one_tick(args.path1.upper(), 1)
-   elif args.cmd == "eval-one-2":
-      do_evaluate_one_tick(args.path1.upper(), 2)
+      do_evaluate_one_tick(args.path1.upper(), int(args.path2))
    elif args.cmd == "eval-one-file":
       do_evaluate_file_one_tick()
 
