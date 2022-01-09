@@ -1,7 +1,7 @@
 ;; Run the follwing comamnd for profiling
 ;; ~/usr/bin/emacs -Q -l  ~/.emacs.d/profile-dotemacs.el -f profile-dotemacs
 
-(setq gc-cons-threshold 40000000)
+;;(setq gc-cons-threshold 40000000)
 
 ;; 1 is vm laptop,
 ;; 2 is vnc office Monitor
@@ -76,7 +76,7 @@
 (tool-bar-mode -1)
 
 ;;size of garbage collector.
-(setq gc-cons-threshold 100000000)
+;;(setq gc-cons-threshold 100000000)
 
 ;; disable splash screen and startup messages.
 (setq inhibit-splash-screen t)
@@ -237,6 +237,8 @@
 (require 'dumb-jump-setup)
 (require 'rg-setup)
 ;;(require 'sr-speedbar-setup)
+(require 'highlight-indent-setup)
+(require 'yaml-setup)
 
 ;; tabbar
 ;;(use-package tabbar
