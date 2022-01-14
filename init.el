@@ -30,7 +30,7 @@
   )
 
 (if ( = laptop 2)
-    (adjustWindowSize 240 55 95)
+    (adjustWindowSize 240 55 105)
   )
 
 (if ( = laptop 3)
@@ -63,7 +63,9 @@
 ;; (require 'general-setup)
 
 ;; ====== EMACS windows (color, size) setting ========
-(require 'gruvbox-themes-setup)
+;;(require 'overcast-theme-setup)
+(require 'solarized-theme-setup)
+;;(require 'gruvbox-themes-setup)
 ;;(require 'kaolin-themes-setup)
 ;;(require 'moe-theme-setup)
 ;;(load-file "~/.emacs.d/custom/abyss-theme-source-code.el")
@@ -279,9 +281,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(global-display-line-numbers-mode t)
  '(package-selected-packages
    '(moe-theme xcscope auto-complete-c-headers auto-complete-config auto-complete company-irony-c-headers irony-eldoc zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu company-irony flycheck-irony flycheck irony))
- '(safe-local-variable-values '((eval when (fboundp 'rainbow-mode) (rainbow-mode 1)))))
+ '(safe-local-variable-values '((eval when (fboundp 'rainbow-mode) (rainbow-mode 1))))
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 
 ;;============================
 (setq launchdir default-directory)
@@ -291,4 +296,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 113 :width normal)))))

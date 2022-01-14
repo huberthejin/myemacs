@@ -22,6 +22,12 @@ em1() {
     fi
 }
 
+gunzipall() {
+    for file in *.gz; do
+        gunzip -f  $file
+    done
+}
+
 
 #function ta ()
 #{
