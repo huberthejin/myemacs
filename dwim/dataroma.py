@@ -552,10 +552,19 @@ def get_dict_values_from_yh(tick, company):
    return ret_val, company
 
 def do_save_yh_to_json_file():
-   outputfile = "/home/hjin/test/yh_data"
+   # load partial data from existing file
+   if os.path.exists("./yh/yh_data") and \
+      os.path.getsize("./yh/yh_data") != 0:
+      infile = "./yh/yh_data"
+      infp = open(infile)
+      companylist = json.load(infp)
+   else:
+      # Get empty dict if no file exits
+      companylist = dict()
+
+   outputfile = "./yh/yh_data"
    outfp = open(outputfile, 'w+')
-   filepath = "/home/hjin/test/all-ticks"
-   companylist = dict()
+   filepath = "../all-ticks"
    company = dict()
 
    with open(filepath) as fp:
@@ -789,14 +798,17 @@ def get_dict_values_from_ska(tick, company, idx):
 
 def do_save_ska_to_json_file():
    # load partial data from existing file
-   infile = "/home/hjin/test/ska_data"
-   infp = open(infile)
-   companylist = json.load(infp)
-   #print (json.dumps(company, indent=4))
+   if os.path.exists("./ska/ska_data") and \
+      os.path.getsize("./ska/ska_data") != 0:
+      infile = "./ska/ska_data"
+      infp = open(infile)
+      companylist = json.load(infp)
+   else:
+      companylist = dict()
 
-   outputfile = "/home/hjin/test/ska_data"
+   outputfile = "./ska/ska_data"
    outfp = open(outputfile, 'w+')
-   filepath = "/home/hjin/test/all-ticks"
+   filepath = "../all-ticks"
    #companylist = dict()
    company = dict()
    with open(filepath) as fp:
@@ -903,6 +915,12 @@ def do_calc_growth_rate(data_list):
    compound_rate = 0
    compound_rate_fmt = 0.0
 
+   # printout raw data
+   print("raw: ", end=" ")
+   for item in data_list:
+      print(item, end=" ")
+   print("")
+
    size = len(data_list)
    for idx in range(0,size):
       if data_list[idx] > 0:
@@ -928,7 +946,7 @@ def do_one_tick_calculation(company):
    re_output = re.sub(r'",\s+', '", ', output)
    print(re_output)
 
-   print("==========")
+   print(f"======= {company['name']} ======")
    rev_growth = do_calc_growth_rate(company["rev_list"])
    print("rev_growth: ", rev_growth)
    grosspft_growth = do_calc_growth_rate(company["grosspft_list"])
@@ -960,8 +978,9 @@ def do_one_tick_calculation(company):
    price_ratio = close_price/tencap_price
    price_ratio_fmt = "{:.2f}".format(price_ratio)
 
-   print("**close_price: ", close_price)
-   print("**tencap_price: ", tencap_price_fmt, "     [ ", price_ratio_fmt, " ]")
+   print("===========")
+   print(f"{'*close_price: ' :<20} {close_price}")
+   print(f"{'*tencap_price:' :<20} {tencap_price_fmt :<10} [ {price_ratio_fmt} ]")
 
    # pabriDcf
 
@@ -980,7 +999,7 @@ def do_one_tick_calculation(company):
       growth_rate = rev_growth
       growth_rate_name = "rev_growth"
 
-   print("growth_rate: ", growth_rate, growth_rate_name)
+   print(f"{'*growth_rate:' :<20} {growth_rate :<10} [{growth_rate_name}] ")
    cash_from_operations = company["cash_from_operations"]
    capexp = company["capexp"]
    sale_property = company["sale_property"]
@@ -1016,19 +1035,20 @@ def do_one_tick_calculation(company):
                  fcf_y6_dcf + fcf_y7_dcf + fcf_y8_dcf + fcf_y9_dcf + fcf_y10_dcf + \
                  termination_value+ total_cash + total_debt
 
-   print("#####")
-   print(fcf_y1, fcf_y1_dcf)
-   print(fcf_y8, fcf_y8_dcf)
+   mydbg2(fcf_y1, fcf_y1_dcf)
+   mydbg2(fcf_y8, fcf_y8_dcf)
    #print(current_npv)
 
    intrinsic_value_per_share = current_npv/share_num
-   pabridcf_price = intrinsic_value_per_share/2
    intrinsic_price_ratio = close_price/intrinsic_value_per_share
    intrinsic_price_ratio_fmt = "{:.2f}".format(intrinsic_price_ratio)
 
-   print("**pabriDcf: ", round(pabridcf_price, 2), \
-         "   intrinsic: ", round(intrinsic_value_per_share, 2), \
-         "  [ ", intrinsic_price_ratio_fmt, " ]" )
+   pabridcf_price = intrinsic_value_per_share/2
+   pabridcf_price_ratio = close_price/pabridcf_price
+   pabridcf_price_ratio_fmt = "{:.2f}".format(pabridcf_price_ratio)
+
+   print(f"{'*pabDcf_price:' :<20} {round(pabridcf_price, 2):<10} [ {pabridcf_price_ratio_fmt} ]")
+   print(f"{'==pabIntrinsic:' :<20} {round(intrinsic_value_per_share, 2):<10} [ {intrinsic_price_ratio_fmt} ]" )
 
    # payback (eight years)
    payback_sum = fcf_y1 + fcf_y2 + fcf_y3 + fcf_y4 + fcf_y5 + \
@@ -1038,8 +1058,7 @@ def do_one_tick_calculation(company):
    payback_price_ratio = close_price/payback_price
    payback_price_ratio_fmt = "{:.2f}".format(payback_price_ratio)
 
-   print("**payback_price: ", round(payback_price), \
-         "  [ ", payback_price_ratio_fmt, " ]" )
+   print(f"{'*payback_price:' :<20} {round(payback_price):<10} [ {payback_price_ratio_fmt} ]" )
 
 
 ## This will evaluate one stock
@@ -1096,7 +1115,7 @@ def get_ticks():
 
 def main():
    if len(sys.argv) == 1:
-       print("Please use the following commands:");
+       print("Please use the following commands in subdir:");
        print("    check-date -- print the submit date")
        print("    holders -- print the whole holder-symbols table")
        print("    count-symbols -- count how many holders for a symbol")
@@ -1106,14 +1125,14 @@ def main():
        print("              eg: ./dataroma.py get-ticks | tee all-ticks ")
        print("    tpe -- sort the trailing PEs")
        print("         eg: python -u ./dataroma.py tpe merge_data")
-       print("    yh-to-file -- save yahoo data to file")
+       print("    yh-to-file -- save yahoo data to file. Needs yh subdir")
        print("         eg: python -u ./dataroma.py yh-to-file")
-       print("    ska-to-file -- save seekalpha data to file")
+       print("    ska-to-file -- save seekalpha data to file. Needs ska subdir")
        print("         eg: python -u ./dataroma.py ska-to-file")
        print("    merge-json-files file1 file2 -- add file2 json contents to file1")
-       print("         eg: python -u ./dataroma.py merge-json-files ./yh_data ./ska_data ./merge_data")
+       print("         eg: python -u ../dataroma.py merge-json-files ./yh/yh_data ./ska/ska_data ./merge_data ")
        print("    eval-one tick idx -- evaluate one tick (1 - TTM, 2 - last year etc)")
-       print("         eg: python -u ./dataroma.py eval-one FB 1")
+       print("         eg: python -u ./dataroma.py eval-one 1 FB")
        print("    eval-one-file -- evaluate one_tick file")
        print("         eg: python -u ./dataroma.py eval-one-file")
        print("    change path1 path2")
@@ -1154,7 +1173,7 @@ def main():
    elif args.cmd == "merge-json-files":
       do_merge_file2_to_file1(args.path1, args.path2, args.path3)
    elif args.cmd == "eval-one":
-      do_evaluate_one_tick(args.path1.upper(), int(args.path2))
+      do_evaluate_one_tick(args.path2.upper(), int(args.path1))
    elif args.cmd == "eval-one-file":
       do_evaluate_file_one_tick()
 
