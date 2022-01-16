@@ -12,11 +12,12 @@ import gc
 import operator
 import re
 import numpy_financial as npf
+import traceback
 
 #debug_level: 0 - nodebug
 #             1 - most important debug
 #             2 - normal debug
-debug_level = 2
+debug_level = 1
 
 wait_sec = 2
 
@@ -151,6 +152,24 @@ def convert_num_to_Million(numStr):
 
    mydbg2("numInmill", numInMill)
    return numInMill
+
+def convert_num_to_unit(numStr):
+   mydbg2("numStr", numStr)
+   if "k" in numStr:
+      numNoK = numStr[:-1]
+      numInUnit = float(numNoK) *  1000
+   elif "N/A" in numStr:
+      numInUnit = float(0)
+   elif "-" in numStr:
+      numInUnit = float(0)
+   else:
+      if "(" in numStr:
+         numInUnit = float(numStr.replace('(','').replace(')','').replace(',','').replace('$','')) * -1
+      else:
+         numInUnit = float(numStr.replace(',','').replace('$',''))
+
+   mydbg2("numInUnit", numInUnit)
+   return numInUnit
 
 
 
@@ -326,22 +345,6 @@ def old_count_all_acqms():
    printSortedStk1()
 
 ##### trailing PEs
-
-def convert_num_to_unit(numStr):
-   mydbg2("numStr", numStr)
-   if "k" in numStr:
-      numNoK = numStr[:-1]
-      numInUnit = float(numNoK) *  1000
-   elif "N/A" in numStr:
-      numInUnit = float(0)
-   else:
-      if "(" in numStr:
-         numInUnit = float(numStr.replace('(','').replace(')','').replace(',','').replace('$','')) * -1
-      else:
-         numInUnit = float(numStr.replace(',','').replace('$',''))
-
-   mydbg2("numInUnit", numInUnit)
-   return numInUnit
 
 def old_get_tpe_from_ya(tick, outfp):
    # Initialize the variables.
@@ -612,7 +615,8 @@ def get_dict_values_from_ska(tick, company, idx):
    cash_from_operations_str = "0"
 
    # seekingalpha -- cashflow
-   sc_cookie = "machine_cookie=6578850866496; LAST_VISITED_PAGE=%7B%22pathname%22%3A%22https%3A%2F%2Fseekingalpha.com%2Fsymbol%2FFL%22%2C%22pageKey%22%3A%2286d8c17e-aa3f-450c-9b3c-b62f3b35a1fe%22%7D; _sasource=; session_id=3acc472c-e39c-44f4-b6df-93974e64803c; __tbc=%7Bkpbx%7DbtdrSAgVV5I128fRrSmlrLv1ifW90tl5l_rSFf7cwwFrFQSqmH32zt9E7LF-3SryU2BSWXJqOch0mQBg1e109HOH_-jesnQT8GhuDc4aXLs; __pat=-18000000; __pvi=%7B%22id%22%3A%22v-2022-01-04-20-00-50-960-OxWw2H7IgWxffXlP-eab022edb31c73ccc1a75a24e3f894de%22%2C%22domain%22%3A%22.seekingalpha.com%22%2C%22time%22%3A1641344453799%7D; xbc=%7Bkpbx%7D17GMJyZl-q9yJCCRqU_rdWwnsWWughOqJJRQgdIgu-VONLUUyaK8eful4YGDryK2fIzndfJqA0nn9dycxA5-nymOmlIxhG0ukFUwt3SxeYmnhdUNZp9rM7EF2H0XwkaeGQAkExim4a1C90mGcz1LZvvW2EYCLl50udCLO_YdQK0oElIAPWxEhQoqBNA49x7vBhBFYRCKLb61f98jWrMHxrb98zYwqti3S_2wf2m8mGM; sailthru_pageviews=1; prism_25946650=97d4bc9f-791c-49b6-8ba1-6c4ebb54961a; _gcl_au=1.1.96885177.1641344452; _uetsid=edf023e06dc211ec83e51f9a133707af; _uetvid=edf02e706dc211ec91e31171f54b27ae; pxcts=eef0e350-6dc2-11ec-9ca6-ff6e210dfdb1; _pxvid=eef08888-6dc2-11ec-b60d-684b6469594d; _pxde=556f5c0340af6c02edb0bd0fb48d698eb8c233607ca7bad99d714bed164dbe55:eyJ0aW1lc3RhbXAiOjE2NDEzNDQ0NTUyNDksImZfa2IiOjB9; _ga=GA1.2.779398346.1641344455; _gid=GA1.2.858399983.1641344455; _gat_UA-142576245-4=1; _dc_gtm_UA-142576245-1=1; _clck=7xt26o|1|exv|0; _fbp=fb.1.1641344454873.847334432; _clsk=38dxri|1641344455125|1|0|b.clarity.ms/collect"
+   # firefox, income-statement/GET
+   sc_cookie = "machine_cookie=8619160637441; LAST_VISITED_PAGE=%7B%22pathname%22%3A%22https%3A%2F%2Fseekingalpha.com%2Fsymbol%2FASML%22%2C%22pageKey%22%3A%22301f9740-c80d-4722-96a9-f19475ce35bc%22%7D; session_id=45d1209c-24a1-4666-80eb-2113debc170b; __tbc=%7Bkpbx%7Dp7BENTc0p2VRd8xZTpU9kRJIo8GDGMUP_ts6Hv_qVvUk5DcMrlOg5x2g5PL1cC2AbN6dfixX1ezw-Q5Lx5MiFcC08N3DeiGmrIQtcfXxyh4; __pat=-18000000; __pvi=%7B%22id%22%3A%22v-2022-01-15-21-20-54-660-hZiPMtA3DcNbiy1k-fff2441e8a69239afb4222daac45a33b%22%2C%22domain%22%3A%22.seekingalpha.com%22%2C%22time%22%3A1642299670964%7D; xbc=%7Bkpbx%7D17GMJyZl-q9yJCCRqU_rdWwnsWWughOqJJRQgdIgu-VONLUUyaK8eful4YGDryK2fIzndfJqA0nn9dycxA5-n_mlYAm6eHG7Pq1LZgIR4zWUkv2RKy3rJd9Qsk8cHLPlvjhuRmx_t1ZjQa7IsxW7_xvU1RNUaiZg9avridxRXM4oElIAPWxEhQoqBNA49x7vBhBFYRCKLb61f98jWrMHxrb98zYwqti3S_2wf2m8mGM; sailthru_pageviews=1; _gcl_au=1.1.1700814452.1642299656; prism_25946650=38bdf2fc-70a6-4fd0-a066-3067e88d9be4; _ga=GA1.2.672133721.1642299657; _gid=GA1.2.603671983.1642299657; _gat_UA-142576245-4=1; _dc_gtm_UA-142576245-1=1; _clck=ressaa|1|ey6|0; _px2=eyJ1IjoiZjc5MDQ3ZTAtNzY3Mi0xMWVjLTkwMDEtNjdlNTBjOTc0NTdiIiwidiI6ImYwNjE4YzE3LTc2NzItMTFlYy04MTQ0LTY1NjU1NjVhNjY0MyIsInQiOjE2NDIzMDAxNzE3NjEsImgiOiIwOGU4OGMyMTYzOTNjMjczODMwOWJlZDhmYmI2ZTY4MjM0NmI4NWUzM2Y1MjJhMGQzMzliOWM1OTJkNzYzNGM5In0=; _px=e9p/0sY9pHFjEkq+Sxp/l/4bdx1wfhhW5ds3GGYPHWVKofEt2Ioh9EKyqXebD2ODmaO5sFTH9EEW+fgGZnshVA==:1000:e5nO6dmUksp1IFMsH1dx5keCeeSYwN+aTV5xOWJNrmGIQ6RmYCQ4Yabi03fEGOCGVp50LJO2KpEEk73EzD9L34SeQg2D3zYdMLklBGMdpm2fTggRZUcPN8eQj0OfHw8VRnJykE1HqXEkd+iY5awmF5ADzyjPotmdKc/vT4LXwSoke+pIgYRGprNs3tauaO7SNrQ8nCXolZg70PRF+/h5wiV7QLIgZ2VOjilF/hpij0m4EuQhKOMJm9RoXjVP8dWhe1ru/5p30o6vAl2ambbCtQ==; pxcts=f061e6e0-7672-11ec-b777-31aa06aaba58; _pxvid=f0618c17-7672-11ec-8144-6565565a6643; _pxde=9a85660e07caa29e651a00d07cb2ac2a6031a5e6d3c0fe21d182ab991e3d1c52:eyJ0aW1lc3RhbXAiOjE2NDIyOTk2NzE3NjEsImZfa2IiOjB9; _clsk=e0nd9v|1642299671456|3|0|e.clarity.ms/collect; _fbp=fb.1.1642299657556.1756000643; _uetsid=efc3c5b0767211ec8eecb745aa9ac1ea; _uetvid=efc3dc60767211ecbd940db587b46b5d; ga_clientid=672133721.1642299657; h_px=1; __adblocker=false"
 
    sc_headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0", \
                  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8", \
@@ -637,6 +641,12 @@ def get_dict_values_from_ska(tick, company, idx):
       return ret_val, company
    #print(si_reqs.text)
    dataIncm = json.loads(si_reqs.text)
+   print(len(dataIncm["data"]))
+   print(len(dataIncm["data"][0]))
+   if len(dataIncm["data"]) == 0 or len(dataIncm["data"][0]) == 0 or len(dataIncm["data"][0][0]) == 0:
+      ret_val = 2
+      print("It is nodata ***")
+      return ret_val, company
    si_col_len = len(dataIncm["data"][0][1])
    for list1 in dataIncm["data"]:
       for sec_entry in list1:
@@ -702,7 +712,7 @@ def get_dict_values_from_ska(tick, company, idx):
    balSheet = json.loads(sb_reqs.text)
    # I call it : table, section, entry, column
    # dataCash[table][section][entry][column]
-   sb_col_len = len(balSheet["data"][1][0])
+   sb_col_len = len(balSheet["data"][0][0])
    for list1 in balSheet["data"]:
       for sec_entry in list1:
          if (sec_entry[0]["value"] == "Book Value / Share"):
@@ -778,28 +788,45 @@ def get_dict_values_from_ska(tick, company, idx):
    return ret_val, company
 
 def do_save_ska_to_json_file():
+   # load partial data from existing file
+   infile = "/home/hjin/test/ska_data"
+   infp = open(infile)
+   companylist = json.load(infp)
+   #print (json.dumps(company, indent=4))
+
    outputfile = "/home/hjin/test/ska_data"
    outfp = open(outputfile, 'w+')
    filepath = "/home/hjin/test/all-ticks"
-   companylist = dict()
+   #companylist = dict()
    company = dict()
    with open(filepath) as fp:
        cnt = 0
        do_exit = 0
        for line in fp:
           tick = line[:-1]
-          mydbg2(tick, "--------")
+          mydbg2(tick,"--------")
+          if tick in companylist.keys():
+             print(tick, " exists")
+          else:
+             # company is changed in the called function.
+             try:
+                result = get_dict_values_from_ska(tick, company, 1)
+                # something wrong, go save the current result
+                if result[0] == 1:
+                   break
+                if result[0] == 2:
+                   continue
+             except Exception as e:
+                print("Something is wrong, save and exit")
+                tb = traceback.format_exc()
+                print(tb)
+                break
 
-          # company is changed in the called function.
-          result = get_dict_values_from_ska(tick, company)
-          # something wrong, go save the current result
-          if result[0] != 0:
-             break
+             companylist[tick] = company
+             gc.collect()
+             time.sleep(wait_sec)
 
-          companylist[tick] = company
-          gc.collect()
-          time.sleep(wait_sec)
-
+   # The data is recorded at the very end.
    outfp.write(json.dumps(companylist, indent=4, sort_keys=True))
 
 
@@ -874,23 +901,23 @@ def do_calc_growth_rate(data_list):
    start_idx = -1
    end_idx = -1
    compound_rate = 0
+   compound_rate_fmt = 0.0
 
    size = len(data_list)
-   for idx in range(0,6):
+   for idx in range(0,size):
       if data_list[idx] > 0:
          start_idx = idx
          break
 
    if start_idx != -1:
-      for idx in reversed(range(0,6)):
+      for idx in reversed(range(0,size)):
          if data_list[idx] > 0 and data_list[idx] >= data_list[start_idx]:
             end_idx = idx
             break
    if start_idx != -1 and end_idx > start_idx:
       compound_rate = (data_list[end_idx]/data_list[start_idx])**(1/(end_idx-start_idx))-1
       compound_rate_fmt = round(compound_rate, 4)
-
-   mydbg2("compound_rate", round(compound_rate_fmt*100, 2), start_idx, end_idx, data_list[start_idx], data_list[end_idx])
+   mydbg1("compound_rate", round(compound_rate_fmt*100, 2), start_idx, end_idx, data_list[start_idx], data_list[end_idx])
    return compound_rate_fmt
 
 
@@ -996,17 +1023,23 @@ def do_one_tick_calculation(company):
 
    intrinsic_value_per_share = current_npv/share_num
    pabridcf_price = intrinsic_value_per_share/2
+   intrinsic_price_ratio = close_price/intrinsic_value_per_share
+   intrinsic_price_ratio_fmt = "{:.2f}".format(intrinsic_price_ratio)
 
    print("**pabriDcf: ", round(pabridcf_price, 2), \
-         "     intrinsic: ", round(intrinsic_value_per_share, 2))
+         "   intrinsic: ", round(intrinsic_value_per_share, 2), \
+         "  [ ", intrinsic_price_ratio_fmt, " ]" )
 
    # payback (eight years)
    payback_sum = fcf_y1 + fcf_y2 + fcf_y3 + fcf_y4 + fcf_y5 + \
                  fcf_y6 + fcf_y7 + fcf_y8
 
    payback_price = payback_sum/share_num
+   payback_price_ratio = close_price/payback_price
+   payback_price_ratio_fmt = "{:.2f}".format(payback_price_ratio)
 
-   print("**payback_price: ", round(payback_price))
+   print("**payback_price: ", round(payback_price), \
+         "  [ ", payback_price_ratio_fmt, " ]" )
 
 
 ## This will evaluate one stock
