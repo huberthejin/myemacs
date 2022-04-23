@@ -64,6 +64,7 @@
 
 ;; ====== EMACS windows (color, size) setting ========
 ;;(require 'overcast-theme-setup)
+
 (require 'solarized-theme-setup)
 ;;(require 'gruvbox-themes-setup)
 ;;(require 'kaolin-themes-setup)
@@ -184,7 +185,7 @@
 (require 'expand-region-setup)
 ;;(require 'protobuf-setup)
 ;;(require 'cmake-setup)
-(require 'column-indicator-setup)
+;;(require 'column-indicator-setup)
 
 ;;(require 'magit-setup)
 (unless (package-installed-p 'magit)
@@ -282,6 +283,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(global-display-line-numbers-mode t)
+ '(helm-buffer-max-length 20)
  '(package-selected-packages
    '(moe-theme xcscope auto-complete-c-headers auto-complete-config auto-complete company-irony-c-headers irony-eldoc zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu company-irony flycheck-irony flycheck irony))
  '(safe-local-variable-values '((eval when (fboundp 'rainbow-mode) (rainbow-mode 1))))
@@ -296,4 +298,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 113 :width normal)))))
+ )
