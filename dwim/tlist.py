@@ -34,7 +34,7 @@ def main():
            cnt += 1
 
    # Run gtags command
-   cmd = "cat ./cscope.files | xargs etags -a"
+   cmd = "cat ./cscope.files | xargs etags -a - "
    print("{}\n".format(cmd))
    os.system(cmd)
 
