@@ -34,7 +34,7 @@ def main():
            cnt += 1
 
    # Run gtags command
-   cmd = "gtags -f ./gtaglist"
+   cmd = "gtags -i -f ./gtaglist"
    print("{}\n".format(cmd))
    os.system(cmd)
 

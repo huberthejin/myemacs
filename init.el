@@ -7,7 +7,7 @@
 ;; 2 is vnc office Monitor
 ;; 3 is vnc office.
 ;; 4 is vnc home DELL monitor
-(setq laptop 2)
+(setq laptop 3)
 
 (defun adjustWindowSize (myWinWidth myWinHeight myFontSize)
   "My change window setting."
@@ -34,7 +34,7 @@
   )
 
 (if ( = laptop 3)
-    (adjustWindowSize 230 60 100)
+    (adjustWindowSize 220 60 110)
     )
 
 (if ( = laptop 4)
@@ -175,14 +175,14 @@
 
 ;; C-x  then wait couple of seconds.
 (require 'which-key-setup)
-(require 'helm-setup)
-(require 'helm-gtags-setup)
+;;(require 'helm-setup)
+;;(require 'helm-gtags-setup)
 
 (require 'uniquify-setup)
 ;;(require 'yasnippet-setup)
-(require 'smartparens-setup)
+;;(require 'smartparens-setup)
 (require 'avy-setup)
-(require 'expand-region-setup)
+;;(require 'expand-region-setup)
 ;;(require 'protobuf-setup)
 ;;(require 'cmake-setup)
 ;;(require 'column-indicator-setup)
@@ -201,6 +201,7 @@
 (require 'cedet-setup)
 ;;(require 'editing-setup)
 (require 'multiple-cursors-setup)
+(require 'ggtags-setup)
 (require 'move-text-setup)
 
 (require 'ag-setup)
@@ -249,20 +250,6 @@
 
 ;; use Shirf and arrow key to move between windows
 (windmove-default-keybindings)
-
-;; Compilation
-(global-set-key (kbd "<f8>") (lambda ()
-                               (interactive)
-                               (setq-local compilation-read-command nil)
-                               (call-interactively 'compile)))
-
-(setq
- ;; use gdb-many-windows by default
- gdb-many-windows t
- ;; Non-nil means display source file containing the main routine at startup
- gdb-show-main t
- )
-
 ;; automatically indent when press RET
 
 ;; activate whitespace-mode to view all whitespace characters
@@ -282,12 +269,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(global-display-line-numbers-mode t)
- '(helm-buffer-max-length 20)
  '(package-selected-packages
-   '(moe-theme xcscope auto-complete-c-headers auto-complete-config auto-complete company-irony-c-headers irony-eldoc zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu company-irony flycheck-irony flycheck irony))
- '(safe-local-variable-values '((eval when (fboundp 'rainbow-mode) (rainbow-mode 1))))
- '(show-paren-mode t)
  '(tool-bar-mode nil))
 
 ;;============================
