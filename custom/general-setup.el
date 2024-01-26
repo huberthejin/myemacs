@@ -311,7 +311,7 @@
 
 
 ;; Fix "Unmatched Text during Lexical Analysis" error.
-(advice-add 'semantic-idle-scheduler-function :around #'ignore)
+;;(advice-add 'semantic-idle-scheduler-function :around #'ignore)
 
 
 (provide 'general-setup)

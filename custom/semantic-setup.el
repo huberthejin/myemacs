@@ -57,7 +57,7 @@
 ;; you can use system-include-path for setting up the system header file locations.
 ;; turn on automatic reparsing of open buffers in semantic
 (global-semantic-idle-scheduler-mode 1)
-
+(global-semantic-idle-completions-mode 1)
 
 
 

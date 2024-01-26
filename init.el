@@ -174,7 +174,7 @@
 (require 'dired-narrow-setup)
 
 ;; C-x  then wait couple of seconds.
-(require 'which-key-setup)
+;;(require 'which-key-setup)
 ;;(require 'helm-setup)
 ;;(require 'helm-gtags-setup)
 
@@ -188,9 +188,9 @@
 ;;(require 'column-indicator-setup)
 
 ;;(require 'magit-setup)
-(unless (package-installed-p 'magit)
-    (package-install 'magit))
-(autoload 'magit-status "magit" nil t)
+;;(unless (package-installed-p 'magit)
+;;    (package-install 'magit))
+;;(autoload 'magit-status "magit" nil t)
 
 (require 'company-setup)
 ;;(require 'projectile-setup)
@@ -198,7 +198,7 @@
 ;;(require 'gdb-setup)
 ;; (require 'ggtags-setup)
 (require 'c-setup)
-(require 'cedet-setup)
+;;(require 'cedet-setup)
 ;;(require 'editing-setup)
 (require 'multiple-cursors-setup)
 (require 'ggtags-setup)
@@ -269,7 +269,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
  '(tool-bar-mode nil))
 
 ;;============================
