@@ -1,63 +1,52 @@
 
-;;=========== C/C++ ==================
-
-
-
-;;(require 'auto-complete)
-;; do default config for auto-complete
-
-
-;; start yasnippet with emacs
-;;(add-to-list 'load-path "~/.emacs.d/elpa/yasnippet-20190724.1204")
-;;(use-package yasnippet
-;;  :init
-;;  (progn
-;;    (yas-global-mode 1)
-;;    (define-key yas-minor-mode-map (kbd "TAB") nil)
-;;    (define-key yas-minor-mode-map (kbd "<tab>") nil)
-;;    (define-key yas-minor-mode-map (kbd "<C-tab>") #'yas-expand)
-;;    )
-;;  )
-
-
-
-
-;; Fix iedit bug in Mac
-;;(define-key global-map (kbd "C-c ;") 'iedit-mode)
-
-;; start flymake-google-cpplint-load
-;; let's define a function for flymake initialization
-;;(defun my:flymake-google-init ()
-;;  (require 'flymake-google-cpplint)
-;;  (custom-set-variables
-;;   '(flymake-google-cpplint-command "/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/cpplint"))
-;;  (flymake-google-cpplint-load)
-;;)
-;;(add-hook 'c-mode-hook 'my:flymake-google-init)
-;;(add-hook 'c++-mode-hook 'my:flymake-google-init)
-
-;; start google-c-style with emacs
-;;(require 'google-c-style)
-;;(add-hook 'c-mode-common-hook 'google-set-c-style)
-;;(add-hook 'c-mode-common-hook 'google-make-newline-indent)
-
 ;; turn on Semantic
 ;; Display current function on the first line.
-(use-package stickyfunc-enhance)
-(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+;;(use-package stickyfunc-enhance)
+;;(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
 (semantic-mode 1)
 ;;(require 'stickyfunc-enhance)
 
-;; turn on ede mode
-;;(global-ede-mode 1)
-;; create a project for our program.
-;(ede-cpp-root-project "dcoBuild" :file "/home/hjin/work/dcoBuild/Makefile"
-;		      :include-path '( "/include/" "/sdk-build/sdkcmn/code/include/app/") )
 
-;; you can use system-include-path for setting up the system header file locations.
-;; turn on automatic reparsing of open buffers in semantic
-(global-semantic-idle-scheduler-mode 1)
-(global-semantic-idle-completions-mode 1)
+(setq semantic-default-submodes
+      '(;; Perform semantic actions during idle time
+        global-semantic-idle-scheduler-mode
+        (semantic-idle-scheduler-idle-time 5)
+        ;; Use a database of parsed tags
+        global-semanticdb-minor-mode
+        ;; Decorate buffers with additional semantic information
+        global-semantic-decoration-mode
+        ;; Highlight the name of the function you're currently in
+        global-semantic-highlight-func-mode
+        ;; show the name of the function at the top in a sticky
+        global-semantic-stickyfunc-mode
+        ;; code completions during idle time
+        global-semantic-idle-completions-mode
+        ;; Generate a summary of the current tag when idle
+        global-semantic-idle-summary-mode
+        ;; Show a breadcrumb of location during idle time
+        global-semantic-idle-breadcrumbs-mode
+        ;; Switch to recently changed tags with `semantic-mrub-switch-tags',
+        ;; or `C-x B'
+        global-semantic-mru-bookmark-mode))
+
+;;;; change db directory
+(setq semanticdb-default-save-directory "/nobackup/hubjin/semanticdb/" )
+;;;; wait for 1 second before active scheduler
+(setq semantic-idle-scheduler-idle-time 1 )
+;;;; no verbose messages
+(setq semantic-idle-scheduler-verbose-flag nil )
+;;;; If non-nil, disable display of working messages while reparsing
+(setq semantic-idle-scheduler-no-working-message nil)
+;;;; If non-nil, show working messages in the mode line
+(setq semantic-idle-scheduler-working-in-modeline-flag nil )
+
+;;;; Wait for 20 seconds before doing idle parsing
+(setq semantic-idle-scheduler-work-idle-time 20)
+;;;; Parse the file in the same directory
+(setq semantic-idle-work-parse-neighboring-files-flag 1 )
+
+;;;; Display completions in a tooltip
+(setq semantic-complete-inline-analyzer-idle-displayer-class  'semantic-displayer-tooltip)
 
 
 
