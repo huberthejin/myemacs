@@ -7,7 +7,8 @@
 ;; 2 is vnc office Monitor
 ;; 3 is vnc office.
 ;; 4 is vnc home DELL monitor
-(setq laptop 3)
+;;(setq laptop 3)
+(setq laptop 1)
 
 (defun adjustWindowSize (myWinWidth myWinHeight myFontSize)
   "My change window setting."
@@ -26,7 +27,7 @@
   )
 
 (if ( = laptop 1)
-    (adjustWindowSize 180 48 140)
+    (adjustWindowSize 170 45 110)
   )
 
 (if ( = laptop 2)
@@ -212,7 +213,7 @@
 
 ;;(require 'rainbow-delimiters-setup)
 
-(require 'fzf-setup)
+;; (require 'fzf-setup)
 
 ;; ==========complete ways ======
 ;; 1. completion old way
@@ -258,7 +259,7 @@
 
 ;; ========= Finish installing all packages ==========
 ;; ========= add my own functions here ===============
- (require 'general-setup)
+;; (require 'general-setup)
 
 ;;============== end of general-setup =============
 ;; function-args
@@ -269,6 +270,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(yaml-mode highlight-indent-guides rg dumb-jump iedit anzu comment-dwim-2 ws-butler clean-aindent-mode undo-tree volatile-highlights evil stickyfunc-enhance xcscope fzf counsel ivy ag move-text ggtags multiple-cursors clang-format+ clang-format company-c-headers company avy dired-narrow solarized-theme use-package))
  '(tool-bar-mode nil))
 
 ;;============================
