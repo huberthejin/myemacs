@@ -61,7 +61,6 @@
 
 ;; ========= require/install all packages ==========
 ;; =================================================
-;; (require 'general-setup)
 
 ;; ====== EMACS windows (color, size) setting ========
 ;;(require 'overcast-theme-setup)
@@ -203,7 +202,7 @@
 ;;(require 'editing-setup)
 (require 'multiple-cursors-setup)
 (require 'ggtags-setup)
-(require 'move-text-setup)
+;;(require 'move-text-setup)
 
 (require 'ag-setup)
 ;;(require 'wgrep-setup)
@@ -232,12 +231,12 @@
 
 (require 'evil-setup)
 (require 'volatile-highlights-setup)
-(require 'undo-tree-setup)
+;;(require 'undo-tree-setup)
 (require 'clean-aindent-mode-setup)
 ;;(require 'dtrt-indent-setup)
-(require 'ws-butler-setup)
-(require 'comment-dwin-2-setup)
-(require 'anzu-setup)
+;;(require 'ws-butler-setup)
+;; (require 'comment-dwin-2-setup)
+;;(require 'anzu-setup)
 (require 'iedit-setup)
 (require 'dumb-jump-setup)
 (require 'rg-setup)
@@ -260,19 +259,11 @@
 ;; ========= Finish installing all packages ==========
 ;; ========= add my own functions here ===============
 ;; (require 'general-setup)
+(require 'gen2-setup)
 
-;;============== end of general-setup =============
 ;; function-args
 ;; (require 'function-args)
 ;; (fa-config-default)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(yaml-mode highlight-indent-guides rg dumb-jump iedit anzu comment-dwim-2 ws-butler clean-aindent-mode undo-tree volatile-highlights evil stickyfunc-enhance xcscope fzf counsel ivy ag move-text ggtags multiple-cursors clang-format+ clang-format company-c-headers company avy dired-narrow solarized-theme use-package))
- '(tool-bar-mode nil))
 
 ;;============================
 (setq launchdir default-directory)
@@ -283,3 +274,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(yaml-mode highlight-indent-guides rg dumb-jump iedit clean-aindent-mode volatile-highlights evil xcscope counsel ivy ag ggtags multiple-cursors clang-format+ clang-format company-c-headers company avy dired-narrow solarized-theme use-package)))
