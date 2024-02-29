@@ -258,7 +258,7 @@
 
 ;; ========= Finish installing all packages ==========
 ;; ========= add my own functions here ===============
-;; (require 'general-setup)
+(require 'general-setup)
 (require 'gen2-setup)
 
 ;; function-args

@@ -41,7 +41,7 @@
 (setq semantic-idle-scheduler-working-in-modeline-flag nil )
 
 ;;;; Wait for 20 seconds before doing idle parsing
-(setq semantic-idle-scheduler-work-idle-time 20)
+(setq semantic-idle-scheduler-work-idle-time 5)
 ;;;; Parse the file in the same directory
 (setq semantic-idle-work-parse-neighboring-files-flag 1 )
 

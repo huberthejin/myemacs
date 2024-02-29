@@ -1,7 +1,7 @@
 ---
 Language:        Cpp
 AccessModifierOffset: -2
-AlignAfterOpenBracket: DontAlign
+AlignAfterOpenBracket: AlwaysBreak
 AlignArrayOfStructures: Right
 AlignConsecutiveAssignments:
   Enabled:         false
@@ -118,7 +118,7 @@ IndentAccessModifiers: false
 IndentCaseBlocks: true
 IndentCaseLabels: true
 IndentExternBlock: AfterExternBlock
-IndentGotoLabels: true
+IndentGotoLabels: false
 IndentPPDirectives: None
 IndentRequiresClause: false
 IndentWidth:     4
