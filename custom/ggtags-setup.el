@@ -19,4 +19,5 @@
   (define-key ggtags-mode-map (kbd "C-c <") 'ggtags-prev-mark)
   (define-key ggtags-mode-map (kbd "C-c >") 'ggtags-next-mark)
 
+  (setq ggtags-global-abbreviate-filename 100)
 (provide 'ggtags-setup)

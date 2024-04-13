@@ -6,7 +6,8 @@
                                         ;(delete 'company-semantic company-backends))
   (setq company-backends (delete 'company-semantic company-backends))
   (setq company-dabbrev-downcase 0)
-  (setq company-idle-delay 3)
+  (setq company-idle-delay 0)
+ ;; (setq company-idle-delay 3)
   )
 
 (defun sd/company-stop-input-space ()

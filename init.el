@@ -52,8 +52,8 @@
 (when (not package-archive-contents)
     (package-refresh-contents))
 
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+;;(unless (package-installed-p 'use-package)
+;;  (package-install 'use-package))
 
 (add-to-list 'load-path "~/.emacs.d/custom")
 (require 'use-package)
@@ -280,4 +280,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(yaml-mode highlight-indent-guides rg dumb-jump iedit clean-aindent-mode volatile-highlights evil xcscope counsel ivy ag ggtags multiple-cursors clang-format+ clang-format company-c-headers company avy dired-narrow solarized-theme use-package)))
+   '(yaml-mode highlight-indent-guides rg dumb-jump iedit clean-aindent-mode volatile-highlights evil xcscope counsel ivy ag ggtags multiple-cursors clang-format+ clang-format company-c-headers company avy dired-narrow solarized-theme)))
