@@ -1,10 +1,10 @@
 
 ;; turn on Semantic
 ;; Display current function on the first line.
-;;(use-package stickyfunc-enhance)
-;;(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+(use-package stickyfunc-enhance)
+(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
 (semantic-mode 1)
-;;(require 'stickyfunc-enhance)
+(require 'stickyfunc-enhance)
 
 
 (setq semantic-default-submodes

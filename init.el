@@ -184,6 +184,7 @@
 (require 'avy-setup)
 ;;(require 'expand-region-setup)
 ;;(require 'protobuf-setup)
+(require 'go-mode-setup)
 ;;(require 'cmake-setup)
 ;;(require 'column-indicator-setup)
 
@@ -198,6 +199,7 @@
 ;;(require 'gdb-setup)
 ;; (require 'ggtags-setup)
 (require 'c-setup)
+(require 'p4-ts-mode-setup)
 ;;(require 'cedet-setup)
 ;;(require 'editing-setup)
 (require 'multiple-cursors-setup)
@@ -279,5 +281,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(yaml-mode highlight-indent-guides rg dumb-jump iedit clean-aindent-mode volatile-highlights evil xcscope counsel ivy ag ggtags multiple-cursors clang-format+ clang-format company-c-headers company avy dired-narrow solarized-theme)))
+ '(package-selected-packages nil))

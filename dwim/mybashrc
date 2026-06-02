@@ -26,8 +26,22 @@ gunzipall() {
     for file in *.gz; do
         gunzip -f  $file
     done
+    for file in *.lz4; do
+        unlz4  $file
+    done
 }
 
+tarall() {
+    for file in *.tgz; do
+        tar xf  $file
+    done
+}
+
+unlz4all() {
+    for file in *.lz4; do
+        unlz4  $file
+    done
+}
 
 #function ta ()
 #{
