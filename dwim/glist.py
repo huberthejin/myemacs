@@ -34,21 +34,24 @@ def main():
            cnt += 1
 
    # Create gtaglist file
-   with open("./GTIDLAUTO") as fp:
-       cnt = 0
-       for line in fp:
-           print("line {} contents {}".format(cnt, line[:-1]))
-           if line[0] == '#':
-               print("skip comments")
-               continue
+   if not os.path.isfile("./GTIDLAUTO"):
+       print("./GTIDLAUTO does not exist. Skipping...\n")
+   else:
+       with open("./GTIDLAUTO") as fp:
+           cnt = 0
+           for line in fp:
+               print("line {} contents {}".format(cnt, line[:-1]))
+               if line[0] == '#':
+                   print("skip comments")
+                   continue
 
-           if cnt == 0:
-               cmd = "find " + line[:-1] + "/. -type f -print >> ./gtaglist"
-           else:
-               cmd = "find " + line[:-1] + "/. -type f -print >> ./gtaglist"
-           print("{}\n".format(cmd))
-           os.system(cmd)
-           cnt += 1
+               if cnt == 0:
+                   cmd = "find " + line[:-1] + "/. -type f -print >> ./gtaglist"
+               else:
+                   cmd = "find " + line[:-1] + "/. -type f -print >> ./gtaglist"
+               print("{}\n".format(cmd))
+               os.system(cmd)
+               cnt += 1
 
    # Run gtags command
    cmd = "gtags -i -f ./gtaglist"

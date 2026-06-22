@@ -214,7 +214,7 @@
 
 ;;(require 'rainbow-delimiters-setup)
 
-;; (require 'fzf-setup)
+(require 'fzf-setup)
 
 ;; ==========complete ways ======
 ;; 1. completion old way
