@@ -200,6 +200,7 @@
 ;; (require 'ggtags-setup)
 (require 'c-setup)
 (require 'p4-ts-mode-setup)
+(require 'npl-mode-setup)
 ;;(require 'cedet-setup)
 ;;(require 'editing-setup)
 (require 'multiple-cursors-setup)

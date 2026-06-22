@@ -10,7 +10,12 @@
   ;; (load-theme 'solarized-gruvbox-light t)
   )
 (require 'solarized-selenized-light-hj-theme)
-;; (load-theme 'solarized-selenized-light-hj t)
+;; The custom theme file lives in ~/.emacs.d/custom, which is on `load-path'
+;; but not on `custom-theme-load-path'; without this `load-theme' fails with
+;; "Unable to find theme file".
+(add-to-list 'custom-theme-load-path
+             (expand-file-name "custom" user-emacs-directory))
+(load-theme 'solarized-selenized-light-hj t)
 
 
 

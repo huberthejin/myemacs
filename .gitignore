@@ -1,0 +1,5 @@
+# Cisco-confidential NPL editing mode.
+# Seeded at startup from an out-of-repo copy (see custom/npl-mode-setup.el);
+# must never be committed to a public remote.
+/custom/npl-mode.el
+/custom/npl-mode.elc
